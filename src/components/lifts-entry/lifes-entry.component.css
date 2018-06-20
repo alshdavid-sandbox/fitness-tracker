@@ -1,0 +1,49 @@
+.app-lifts-entry .type-badge {
+    position: absolute;
+    right: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    color: white;
+    line-height: normal;
+    padding: 2px 4px;
+    text-transform: capitalize;
+    font-size: 11px;
+}
+
+.app-lifts-entry .type-badge.chest {
+    background-color: #1E88E5;
+}
+.app-lifts-entry .type-badge.back {
+    background-color: #e53935;
+}
+
+
+.app-lifts-entry .lift-name {
+    position: relative;
+    line-height: 40px;
+    padding: 0 3%;
+}
+
+.app-lifts-entry .drawer {
+    display: none;
+    background: rgba(255,255,255,0.5);
+    border-bottom: 2px solid #BBDEFB;
+}
+
+.app-lifts-entry .lift {
+    padding: 5px 3%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.app-lifts-entry .lift:nth-child(odd) {
+    background: rgba(0,0,0,0.05);
+}
+
+.app-lifts-entry .title {
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    border-top: 2px solid rgba(0,0,0,0.02);
+}
+
+

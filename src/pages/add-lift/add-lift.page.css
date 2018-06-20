@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+.app-page-add-lift form {
+    padding: 20px 3% 0;
+    
+}
+
+.app-page-add-lift input,
+.app-page-add-lift select {
+    display: block;
+    width: 100%;
+}
+
+.app-page-add-lift .submit {
+    display: block;
+    position: fixed;
+    bottom: 10px;
+    left: 3%;
+    right: 3%;
+    width: 94%;
+    height: 50px;
+}
+
+.app-page-add-lift .reps-container {
+    padding: 20px 10px;
+    background-color: #eee;
+    margin-top: 20px;
+}
+
+.app-page-add-lift .reps-container .reps {
+    display: flex;
+    margin: 0 -5px 20px;
+
+}
+
+.app-page-add-lift .reps-container input {
+    margin: 0 5px;
+}
+
+.app-page-add-lift .reps-container .add-rep {
+    display: block;
+    width: 100%; 
+}
