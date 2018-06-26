@@ -1,11 +1,11 @@
 .app-toolbar-component {
-    height: 50px;   
+    height: 80px;   
 }
 
 .app-toolbar-component .app-toolbar {
-    border-top: 1px #eee solid;
+    
     background-color: white;
-    height: 50px; 
+    height: 80px; 
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -20,16 +20,8 @@
 .app-toolbar-component .app-toolbar-item-component {
     height: 100%;
     flex: 1;
-    border-right: 1px #eee solid;
 }
 
 .app-toolbar-component .app-toolbar-item-component:last-child {
     border-right: none;
-}
-
-.app-toolbar-component.top .app-toolbar {
-    bottom: auto;
-    top: 50px;
-    border-top: none;
-    border-bottom: 1px #eee solid;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Toolbar, ToolbarItem } from '../../components'
+import { Navbar, ToolbarComplete } from '../../components'
 
 export class HomePage extends Component {
     componentDidMount() {
@@ -10,16 +10,7 @@ export class HomePage extends Component {
             <div className="app-weight-tracker">
                 <Navbar center="Fitness Tracker" />
                 Home page
-                <Toolbar>
-                    <ToolbarItem
-                        text="Lifts"
-                        onClick={() => this.props.history.push('/lifts')}
-                    />
-                    <ToolbarItem
-                        text="Weight"
-                        onClick={() => this.props.history.push('/weight')}
-                    />
-                </Toolbar>
+                <ToolbarComplete />
             </div>
         )
     }
