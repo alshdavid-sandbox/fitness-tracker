@@ -1,0 +1,92 @@
+<app-navbar>
+    <app-navbar-left 
+        [routerLink]="['/exercises']">
+        <i class="fas fa-chevron-left"></i> Cancel
+    </app-navbar-left>
+    <app-navbar-center>
+        New Exercise
+    </app-navbar-center>
+    <app-navbar-right (click)="submit()">
+        Save
+    </app-navbar-right>
+</app-navbar>
+
+<main class="container">
+    <br>
+    <app-accordion
+        label="Date"
+        [value]="moment(exercise.date).format('dddd / DD MMMM')"
+        (clickTitle)="openTab('date')"
+        [open]="accordionState.date">
+            <input 
+                type="date" 
+                [(ngModel)]="exercise.date"/> 
+            <br>
+            <app-button 
+                small    
+                theme="secondary"
+                (click)="openTab('movement')">
+                Continue
+            </app-button>
+    </app-accordion>  
+    
+    <app-accordion
+        label="Movement Name"
+        [value]="exercise.movement || 'No Movement'"
+        (clickTitle)="openTab('movement')"
+        [open]="accordionState.movement">
+            <input
+                type="text" 
+                placeholder="Movement" 
+                [(ngModel)]="exercise.movement"
+                (input)="search()" />
+            <div class="suggestions">
+                <div 
+                    *ngFor="let suggestion of suggestions"
+                    (click)="selectSearch(suggestion)"
+                    >{{ suggestion }}
+                </div>
+            </div>
+            <br>
+            <app-button 
+                small    
+                theme="secondary"
+                (click)="openTab('sets')">
+                Continue
+            </app-button>
+    </app-accordion>
+
+    <app-accordion
+        label="Sets"
+        [value]="exercise.sets.length + ' Sets'"
+        (clickTitle)="openTab('sets')"
+        [open]="accordionState.sets">
+            <div *ngFor="let set of exercise.sets; let i = index" class="reps">
+                <input 
+                    [(ngModel)]="set.reps"
+                    placeholder="Reps" 
+                    type="number" />
+                <input 
+                    [(ngModel)]="set.weight"
+                    placeholder="Weight" 
+                    type="number" />
+                <i class="fas fa-times" (click)="removeRep(i)"></i>
+            </div>
+            <br>
+            <app-button 
+                small    
+                theme="primary"
+                (click)="addRep()">
+                Add Set
+            </app-button>
+            <br>
+            <app-button 
+                small    
+                theme="secondary"
+                (click)="accordionState.sets = false">
+                Continue
+            </app-button>
+    </app-accordion>
+
+    
+</main>

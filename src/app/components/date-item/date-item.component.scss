@@ -1,0 +1,11 @@
+@import "../../../styles/variables.scss";
+
+:host {
+    display: block;
+    padding: 8px 3%;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 300;
+    background-color: $color-2;
+    border-bottom: 0px #eee solid;
+}

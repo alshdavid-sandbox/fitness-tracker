@@ -1,5 +1,0 @@
-export * from './home/home.page'
-export * from './lifts/lifts.page'
-export * from './lifts.add/lifts.add.page'
-export * from './lifts.detail/lifts.detail.page'
-export * from './weight/weight.page'

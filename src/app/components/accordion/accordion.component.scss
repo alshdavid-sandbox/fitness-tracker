@@ -1,0 +1,39 @@
+@import "../../../styles/variables.scss";
+
+:host {
+    display: block;
+    margin-bottom: 32px;
+}
+
+.title {
+    background-color: rgba(#43A047, 0.2);
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3%;
+    line-height: 40px;
+    text-transform: capitalize;
+
+    &.open {
+        justify-content: center;
+        opacity: 1;
+        color: white;
+        background-color: $color-4;
+
+        label {
+            font-weight: 400;
+            font-size: 16px;
+        }
+    }
+}
+
+label {
+    line-height: 40px;
+    margin: 0;
+}
+
+.content {
+    padding: 20px;
+    background: $color-2;
+}

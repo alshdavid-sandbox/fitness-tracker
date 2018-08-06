@@ -1,0 +1,32 @@
+<app-navbar>
+    <app-navbar-left>Exercises</app-navbar-left>
+    <app-navbar-right 
+        [routerLink]="['/exercises', 'add']">
+        <i class='fas fa-plus'></i>
+    </app-navbar-right>
+</app-navbar>
+
+<main>
+    <div *ngFor="let date of Object.keys(items).reverse()">
+        <app-date-item 
+            [date]="moment(date).format('dddd / DD MMMM')"
+        ></app-date-item>
+        <app-exercise 
+            *ngFor="let exercise of items[date]" 
+            [routerLink]="['/exercises', 'detail', exercise.id]"
+            [movement]="exercise.movement" 
+            [weights]="getAverage(exercise.sets, 'weight')"
+            [reps]="getAverage(exercise.sets, 'reps')"
+        ></app-exercise>
+    </div>
+</main>
+
+<app-toolbar>
+    <app-toolbar-item 
+        *ngFor="let toolbarItem of toolbarItems"
+        [routerLink]="toolbarItem.route"
+        [routerLinkActive]="['active']"
+        [icon]="toolbarItem.icon"
+        [text]="toolbarItem.text"
+    ></app-toolbar-item>
+</app-toolbar>

@@ -1,0 +1,16 @@
+<app-navbar>
+    <app-navbar-left [routerLink]="['/exercises']">
+        <i class="fas fa-chevron-left"></i> Back
+    </app-navbar-left>
+    <app-navbar-right [routerLink]="['/exercises', 'edit', exercise.id ]">
+        Edit
+    </app-navbar-right>
+</app-navbar>
+
+<main class="container">
+    <h3>{{ exercise.movement }}</h3>
+    <h5>{{ moment(exercise.date).format('dddd / DD MMMM') }}</h5>
+    <div #chartOutlet></div>
+
+    <div #chartMacroOutlet></div>
+</main>

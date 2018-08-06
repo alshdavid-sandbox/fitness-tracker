@@ -1,0 +1,20 @@
+<app-navbar>
+    <app-navbar-left>Calories</app-navbar-left>
+    <app-navbar-right>
+        <i class='fas fa-plus'></i>
+    </app-navbar-right>
+</app-navbar>
+
+<main>
+
+</main>
+
+<app-toolbar>
+    <app-toolbar-item 
+        *ngFor="let toolbarItem of toolbarItems"
+        [routerLink]="toolbarItem.route"
+        [routerLinkActive]="['active']"
+        [icon]="toolbarItem.icon"
+        [text]="toolbarItem.text"
+    ></app-toolbar-item>
+</app-toolbar>
