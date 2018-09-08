@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, ActivatedRoute } from '@angular/router'
-import { api } from '../../lib'
+import { Router, ActivatedRoute } from '@angular/router'
+import { api, Exercise } from '../../lib'
 import moment from 'moment'
 import Chart from 'chart.js'
 
@@ -18,28 +18,31 @@ export class ExercisesDetailViewComponent {
 
     public moment = moment
 
-    public exercise = {
+    public exercise: Exercise = {
         id: '',
         date: '',
         movement: '',
         sets: []
     }
 
+    get id() {
+        return this.ngActivatedRoute.snapshot.params.id
+    }
+
     constructor(
-        // private ngActivatedRouteSnapshot: ActivatedRouteSnapshot,
         private ngActivatedRoute: ActivatedRoute
     ) {}
     
     ngOnInit() {
-        console.log(this.ngActivatedRoute.snapshot.params.id)
-
         this.chartOutletInit()
         this.chartMacroOutletInit()
     }
 
-    chartOutletInit() {
-        let id = this.ngActivatedRoute.snapshot.params.id
-        let exercise = api.getExercise(id)
+    async chartOutletInit() {
+        let exercise = await api.getExercise(this.id)
+        if (!exercise) {
+            return
+        }
         this.exercise = exercise
   
         let labels = []
@@ -110,8 +113,8 @@ export class ExercisesDetailViewComponent {
         return (list.reduce((a, b) => a + parseInt(b[key], 10), 0)) / list.length
     }
 
-    chartMacroOutletInit() {
-        let exercises = api.getExerciseByMovement(this.exercise.movement)
+    async chartMacroOutletInit() {
+        let exercises = await api.getExerciseByMovement(this.exercise.movement)
         exercises.sort((left, right) => moment(left.date).diff(moment(right.date)))
   
         let labels = []

@@ -1,4 +1,12 @@
 export const constants = {
+    timeFormat: 'YYYY-MM-DD',
+    databases: {
+        exercises: {
+            name: 'exercises',
+            schema: ['++id','_date','date','movement','sets'],
+            defaultOrderBy: 'date'
+        }
+    },
     defaultRedirectUrl: 'https://google.com.au',
     http: {
         defaultApi: 'http://localhost:3000/',

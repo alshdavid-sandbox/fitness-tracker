@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import moment from 'moment'
-import { api } from '../../lib'
+import { api, Exercise } from '../../lib'
 const timeFormat = 'YYYY-MM-DD'
 
 @Component({
@@ -11,15 +11,15 @@ const timeFormat = 'YYYY-MM-DD'
 })
 export class ExercisesAddViewComponent {
     public moment = moment
-    public suggestions = []
-    public exercise = {
+    public suggestions:string[] = []
+    public exercise: Exercise = {
         date: moment().format(timeFormat),
         movement: '',
         sets: [
-            { reps: '', weight: '' },
-            { reps: '', weight: '' },
-            { reps: '', weight: '' },
-            { reps: '', weight: '' }
+            { reps: null, weight: null },
+            { reps: null, weight: null },
+            { reps: null, weight: null },
+            { reps: null, weight: null }
         ],
     }
     public accordionState = {
@@ -49,12 +49,13 @@ export class ExercisesAddViewComponent {
         this.accordionState[tab] = !state
     }
 
-    search() {
+    async search() {
         if (!this.exercise.movement) {
             this.suggestions = []
             return 
         }
-        this.suggestions = api.searchMovements(this.exercise.movement.toLocaleLowerCase())
+        this.suggestions = await api.searchMovements(this.exercise.movement.toLocaleLowerCase())
+        console.log(this.suggestions)
     }
 
     selectSearch(value) {
@@ -62,14 +63,14 @@ export class ExercisesAddViewComponent {
         this.exercise.movement = value
     }
 
-    submit() {
+    async submit() {
         let output = this.exercise
         if (!output.movement) {
             return
         }
         output.sets = output.sets.filter(({ reps, weight }) => reps || weight)
         console.log(output)
-        api.addExercise(output)
+        await api.addExercise(output)
 
         this.ngRouter.navigate(['/exercises'])
     }

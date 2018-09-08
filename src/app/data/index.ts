@@ -1,5 +1,11 @@
-export * from './db.data'
-export * from './exercises.data'
-export * from './sets.data'
-export * from './movements.data'
-export * from './tags.data'
+import { Exercises } from './exercises'
+import { getDb } from './db'
+
+export const db = {
+    Exercises,
+    getDb
+}
+export * from './types'
+
+
+

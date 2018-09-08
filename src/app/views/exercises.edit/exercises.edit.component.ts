@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import moment from 'moment'
-import { api } from '../../lib'
+import { api, Exercise } from '../../lib'
 const timeFormat = 'YYYY-MM-DD'
 
 @Component({
@@ -12,15 +12,15 @@ const timeFormat = 'YYYY-MM-DD'
 export class ExercisesEditViewComponent {
     public moment = moment
     public suggestions = []
-    public exercise = {
+    public exercise: Exercise = {
         id: '',
         date: '',
         movement: '',
         sets: [
-            { reps: '', weight: '' },
-            { reps: '', weight: '' },
-            { reps: '', weight: '' },
-            { reps: '', weight: '' }
+            { reps: null, weight: null },
+            { reps: null, weight: null },
+            { reps: null, weight: null },
+            { reps: null, weight: null }
         ],
     }
     public accordionState = {
@@ -34,9 +34,9 @@ export class ExercisesEditViewComponent {
         private ngActivatedRoute: ActivatedRoute
     ) {}
 
-    ngOnInit() {
+    async ngOnInit() {
         let id = this.ngActivatedRoute.snapshot.params.id
-        this.exercise = api.getExercise(id)
+        this.exercise = await api.getExercise(id)
     }
 
     addRep() {
@@ -56,12 +56,12 @@ export class ExercisesEditViewComponent {
         this.accordionState[tab] = !state
     }
 
-    search() {
+    async search() {
         if (!this.exercise.movement) {
             this.suggestions = []
             return 
         }
-        this.suggestions = api.searchMovements(this.exercise.movement.toLocaleLowerCase())
+        this.suggestions = await api.searchMovements(this.exercise.movement.toLocaleLowerCase())
     }
 
     selectSearch(value) {
@@ -69,23 +69,23 @@ export class ExercisesEditViewComponent {
         this.exercise.movement = value
     }
 
-    submit() {
+    async submit() {
         let output = this.exercise
         if (!output.movement) {
             return
         }
         output.sets = output.sets.filter(({ reps, weight }) => reps || weight)
         
-        api.updateExercise(output)
+        await api.updateExercise(output)
 
         this.ngRouter.navigate(['/exercises', 'detail', this.exercise.id ])
     }
 
-    remove() {
+    async remove() {
         if (!confirm('Are you sure')) {
             return
         }
-        api.removeExerciseById(this.exercise.id)
+        await api.removeExerciseById(this.exercise.id)
         this.ngRouter.navigate(['/exercises'])
     }
 }

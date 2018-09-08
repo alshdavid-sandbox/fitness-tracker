@@ -14,9 +14,9 @@ export class ExercisesViewComponent {
     public items = {}
 
 
-    ngOnInit() {
-        let exercises = api.getExercises()
-        exercises.sort((left, right) => moment(left.date).diff(moment(right.date)))
+    async ngOnInit() {
+        let exercises = await api.getExercises()
+        
         
         for (let exercise of exercises) {
             if (!this.items[exercise.date]) {

@@ -10,12 +10,12 @@ import { toolbarItems, api } from '../../lib';
 export class SettingsViewComponent {
     public toolbarItems = toolbarItems
 
-    export() {
+    async export() {
         let output = {
             settings: {},
             exercises: []
         }
-        let exercises = api.getExercises()
+        let exercises = await api.getExercises()
         exercises.sort((left, right) => moment(right.date).diff(moment(left.date)))
         
         for (let exercise of exercises) {
@@ -46,8 +46,8 @@ export class SettingsViewComponent {
                 return
             }
             alert('Imported')
-            api.removeAll()
-            api.addExercises(result.exercises)
+            await api.removeAll()
+            await api.addExercises(result.exercises)
         } catch (error) {
             console.error(error)
         }

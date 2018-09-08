@@ -1,50 +1,50 @@
-import { Exercises, Sets, Movements } from '../data'
+import { Exercise, db } from '../data'
 
-function getExerciseByMovement(movement) {
-    return Exercises.getByMovement(movement.toLocaleLowerCase())
+
+export function getExerciseByMovement(movement):Promise<Exercise[]> {
+    return db.Exercises.getByMovement(movement)
 }
 
-function addExercise({ date, movement, sets }) {
-    return Exercises.add({ date, movement: movement.toLocaleLowerCase(), sets })
+export function addExercise({ date, movement, sets }):Promise<void> {
+    return db.Exercises.add({ date, movement, sets })
 }
 
-function addExercises(exercises) {
-    for (let { date, movement, sets } of exercises) {
-        this.addExercise({ date, movement: movement.toLocaleLowerCase(), sets })
+export async function addExercises(exercises:Exercise[]):Promise<void> {
+    for (let exercise of exercises) {
+        await this.addExercise(exercise)
     }
 }
 
-function getExercises() {
-    return Exercises.getAll()
+export function getExercises(from?, to?):Promise<Exercise[]> {
+    return db.Exercises.getAll(from, to)
 }
 
-function getExercise(id) {
-    return Exercises.getById(id)
+export function getExercise(id):Promise<Exercise> {
+    return db.Exercises.getById(id)
 }
 
-function updateExercise({ id, date, movement, sets }) {
-    return Exercises.update({ id, date, movement: movement.toLocaleLowerCase(), sets })
+export function updateExercise({ id, date, movement, sets }:Exercise):Promise<void> {
+    return db.Exercises.update(id, { date, movement, sets })
 }
 
-function removeExerciseById(id) {
-    return Exercises.remove(id)
+export function removeExerciseById(id):Promise<void> {
+    return db.Exercises.remove(id)
 }
 
-function removeAll() {
-    Exercises.clear()
-    Sets.clear()
-    Movements.clear()
+export async function removeAll():Promise<void> {
+    return db.Exercises.removeAll()
 }
 
-function searchMovements(q) {
-    return Movements.search(q.toLocaleLowerCase())
+export async function searchMovements(q):Promise<string[]> {
+    return db.Exercises.searchMovements(q)
 }
 
-function addMovement(movement) {
-    return Movements.add(movement.toLocaleLowerCase())
+export function addMovement(movement):void {
+    // return db.Movements.add(movement)
 }
 
 export const api = {
+    db,
     getExerciseByMovement,
     addExercise,
     addExercises,
@@ -57,4 +57,5 @@ export const api = {
     addMovement
 }
 
-window['api'] = api
+// For debug
+window['data'] = api

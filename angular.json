@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sti": {
+    "fitness-tracker": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sti",
+            "outputPath": "dist/fitness-tracker",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -52,18 +52,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sti:build"
+            "browserTarget": "fitness-tracker:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sti:build:production"
+              "browserTarget": "fitness-tracker:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sti:build"
+            "browserTarget": "fitness-tracker:build"
           }
         },
         "test": {
@@ -97,7 +97,7 @@
         }
       }
     },
-    "sti-e2e": {
+    "fitness-tracker-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -105,11 +105,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sti:serve"
+            "devServerTarget": "fitness-tracker:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "sti:serve:production"
+              "devServerTarget": "fitness-tracker:serve:production"
             }
           }
         },
@@ -125,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "sti"
+  "defaultProject": "fitness-tracker"
 }
