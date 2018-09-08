@@ -11,89 +11,66 @@
     </app-navbar-right>
 </app-navbar>
 
-<main class="container">
-    <br>
-    <app-accordion
-        label="Date"
-        [value]="moment(exercise.date).format('dddd / DD MMMM')"
-        (clickTitle)="openTab('date')"
-        [open]="accordionState.date">
-            <input 
-                type="date" 
-                [(ngModel)]="exercise.date"/> 
-            <br>
-            <app-button 
-                small    
-                theme="secondary"
-                (click)="openTab('movement')">
-                Continue
-            </app-button>
-    </app-accordion>  
+<main class="container">  
+    <label class="field">
+        <input 
+            type="date" 
+            [(ngModel)]="exercise.date"/>     
+    </label>  
     
-    <app-accordion
-        label="Movement Name"
-        [value]="exercise.movement || 'No Movement'"
-        (clickTitle)="openTab('movement')"
-        [open]="accordionState.movement">
-            <input
-                type="text" 
-                placeholder="Movement" 
-                [(ngModel)]="exercise.movement"
-                (input)="search()" />
-            <div class="suggestions">
-                <div 
-                    *ngFor="let suggestion of suggestions"
-                    (click)="selectSearch(suggestion)"
-                    >{{ suggestion }}
-                </div>
+    <label class="field">
+        <input
+            type="text" 
+            placeholder="Movement" 
+            [(ngModel)]="exercise.movement"
+            (input)="search()" />
+        <div class="suggestions" *ngIf="suggestions.length">
+            <div 
+                *ngFor="let suggestion of suggestions"
+                (click)="selectSearch(suggestion)"
+                >{{ suggestion }}
             </div>
-            <br>
-            <app-button 
-                small    
-                theme="secondary"
-                (click)="openTab('sets')">
-                Continue
-            </app-button>
-    </app-accordion>
+        </div>
+    </label>
 
-    <app-accordion
-        label="Sets"
-        [value]="exercise.sets.length + ' Sets'"
-        (clickTitle)="openTab('sets')"
-        [open]="accordionState.sets">
-            <div *ngFor="let set of exercise.sets; let i = index" class="reps">
-                <input 
-                    [(ngModel)]="set.reps"
-                    placeholder="Reps" 
-                    type="number" />
-                <input 
-                    [(ngModel)]="set.weight"
-                    placeholder="Weight" 
-                    type="number" />
-                <i class="fas fa-times" (click)="removeRep(i)"></i>
+    <label class="field">
+        <div class="types">
+            <div class="type" *ngFor="let tag of exercise.tags; let i = index">
+                {{ tag }} <i class="fal fa-times"></i>
             </div>
-            <br>
-            <app-button 
-                small    
-                theme="primary"
-                (click)="addRep()">
-                Add Set
-            </app-button>
-            <br>
-            <app-button 
-                small    
-                theme="secondary"
-                (click)="accordionState.sets = false">
-                Continue
-            </app-button>
-    </app-accordion>
+            <input type="text" #tagEditor placeholder="Muscles/Tags" (keydown.enter)="addTag(tagEditor.value); tagEditor.value = ''">
+        </div>
+    </label>
+    
+    <label class="field">
+        <div *ngFor="let set of exercise.sets; let i = index" class="reps">
+            <input 
+                [(ngModel)]="set.reps"
+                placeholder="Reps" 
+                type="number" />
+            <input 
+                [(ngModel)]="set.weight"
+                placeholder="Weight" 
+                type="number" />
+            <i class="fas fa-times" (click)="removeRep(i)"></i>
+        </div>
+        <app-button 
+            small    
+            theme="white"
+            (click)="addSet()">
+            Add Set
+        </app-button>
+    </label>
+    
+    <label class="field">
+        <textarea autogrow placeholder="Notes" [(ngModel)]="exercise.notes"></textarea>    
+    </label>
 
     <app-button 
+        class="submit"
         small    
-        theme="danger"
-        (click)="remove()">
-        Delete
+        theme="primary"
+        (click)="submit()">
+        Update
     </app-button>
-
-    
 </main>

@@ -1,0 +1,29 @@
+.searchbar-mask {
+    height: 40px;
+}
+
+.serachbar {
+    background-color: white; 
+    height: 40px;
+    padding: 0 3%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-bottom: 1px solid #eee;
+
+    i {
+        position: absolute;
+        left: 3%;
+        color: #666;
+        line-height: 40px;
+    }
+
+    input {
+        margin-left: 24px; 
+        height: 39px;
+        line-height: 40px;
+        border: none;
+    }
+}

@@ -2,9 +2,15 @@
     <app-navbar-left>Exercises</app-navbar-left>
     <app-navbar-right 
         [routerLink]="['/exercises', 'add']">
-        <i class='fas fa-plus'></i>
+        <i class='fal fa-plus'></i>
     </app-navbar-right>
 </app-navbar>
+
+<div class="searchbar-mask"></div>
+<section class="serachbar">
+    <i class="fal fa-search"></i>
+    <input type="text" placeholder="Tap to seach" #filterEl (input)="filter.next(filterEl.value)">
+</section>
 
 <main>
     <div *ngFor="let date of Object.keys(items).reverse()">
@@ -15,8 +21,7 @@
             *ngFor="let exercise of items[date]" 
             [routerLink]="['/exercises', 'detail', exercise.id]"
             [movement]="exercise.movement" 
-            [weights]="getAverage(exercise.sets, 'weight')"
-            [reps]="getAverage(exercise.sets, 'reps')"
+            [tag]="generateAverageString(exercise.sets)"
         ></app-exercise>
     </div>
 </main>

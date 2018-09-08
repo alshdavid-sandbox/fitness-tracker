@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import moment from 'moment'
 import { api, Exercise } from '../../lib'
-const timeFormat = 'YYYY-MM-DD'
 
 @Component({
     selector: 'app-view-exercises-edit',
@@ -16,6 +15,8 @@ export class ExercisesEditViewComponent {
         id: '',
         date: '',
         movement: '',
+        notes: '',
+        tags: [],
         sets: [
             { reps: null, weight: null },
             { reps: null, weight: null },
@@ -23,10 +24,9 @@ export class ExercisesEditViewComponent {
             { reps: null, weight: null }
         ],
     }
-    public accordionState = {
-        date: false,
-        movement: true,
-        sets: false
+
+    get id() {
+        return this.ngActivatedRoute.snapshot.params.id
     }
 
     constructor(
@@ -35,11 +35,16 @@ export class ExercisesEditViewComponent {
     ) {}
 
     async ngOnInit() {
-        let id = this.ngActivatedRoute.snapshot.params.id
-        this.exercise = await api.getExercise(id)
+        this.exercise = await api.getExercise(this.id)
     }
 
-    addRep() {
+    addTag(v) {
+        if (v) {
+            this.exercise.tags.push(v)
+        }
+    }
+
+    addSet() {
         this.exercise.sets.push({ reps: undefined, weight: undefined })
     }
 
@@ -47,21 +52,12 @@ export class ExercisesEditViewComponent {
         this.exercise.sets.splice(i, 1)
     }
 
-    openTab(tab) {
-        let state = this.accordionState[tab]
-
-        Object.keys(this.accordionState)
-            .forEach(i => this.accordionState[i] = false)
-
-        this.accordionState[tab] = !state
-    }
-
     async search() {
         if (!this.exercise.movement) {
             this.suggestions = []
             return 
         }
-        this.suggestions = await api.searchMovements(this.exercise.movement.toLocaleLowerCase())
+        this.suggestions = await api.searchMovements(this.exercise.movement)
     }
 
     selectSearch(value) {
@@ -70,14 +66,7 @@ export class ExercisesEditViewComponent {
     }
 
     async submit() {
-        let output = this.exercise
-        if (!output.movement) {
-            return
-        }
-        output.sets = output.sets.filter(({ reps, weight }) => reps || weight)
-        
-        await api.updateExercise(output)
-
+        await api.updateExercise(this.exercise)
         this.ngRouter.navigate(['/exercises', 'detail', this.exercise.id ])
     }
 

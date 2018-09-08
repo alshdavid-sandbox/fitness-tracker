@@ -5,8 +5,8 @@ export function getExerciseByMovement(movement):Promise<Exercise[]> {
     return db.Exercises.getByMovement(movement)
 }
 
-export function addExercise({ date, movement, sets }):Promise<void> {
-    return db.Exercises.add({ date, movement, sets })
+export function addExercise({ date, movement, sets, tags, notes }):Promise<void> {
+    return db.Exercises.add({ date, movement, sets, tags, notes })
 }
 
 export async function addExercises(exercises:Exercise[]):Promise<void> {
@@ -23,8 +23,8 @@ export function getExercise(id):Promise<Exercise> {
     return db.Exercises.getById(id)
 }
 
-export function updateExercise({ id, date, movement, sets }:Exercise):Promise<void> {
-    return db.Exercises.update(id, { date, movement, sets })
+export function updateExercise({ id, date, movement, sets, tags, notes }:Exercise):Promise<void> {
+    return db.Exercises.update(id, { date, movement, sets, tags, notes })
 }
 
 export function removeExerciseById(id):Promise<void> {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
-import { Router, NavigationEnd, NavigationStart } from '@angular/router'
-import { pairwise } from 'rxjs/operators'
+import { Router, NavigationStart } from '@angular/router'
+import { migrate } from './data/legacy'
 window['routeHistory'] = []
 
 @Component({
@@ -16,6 +16,8 @@ export class AppComponent {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    migrate()
+
     this._subscriptions.push(
       this.router.events.subscribe((routeEvent) => {
         if (routeEvent instanceof NavigationStart) {

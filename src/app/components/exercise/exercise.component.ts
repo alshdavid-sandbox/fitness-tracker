@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./exercise.component.scss']
 })
 export class ExerciseComponent {
+  @Input() tag
   @Input() movement
-  @Input() reps
-  @Input() weights
 }

@@ -22,6 +22,8 @@ export class ExercisesDetailViewComponent {
         id: '',
         date: '',
         movement: '',
+        notes: '',
+        tags: [],
         sets: []
     }
 
@@ -33,9 +35,9 @@ export class ExercisesDetailViewComponent {
         private ngActivatedRoute: ActivatedRoute
     ) {}
     
-    ngOnInit() {
-        this.chartOutletInit()
-        this.chartMacroOutletInit()
+    async ngOnInit() {
+        await this.chartOutletInit()
+        await this.chartMacroOutletInit()
     }
 
     async chartOutletInit() {
@@ -44,7 +46,7 @@ export class ExercisesDetailViewComponent {
             return
         }
         this.exercise = exercise
-  
+
         let labels = []
         let reps = []
         let weight = []
@@ -81,10 +83,14 @@ export class ExercisesDetailViewComponent {
                     }
                 ]},
             options: {
+                legend: {
+                    display: false
+                },
                 scales: {
                     yAxes: [
                         {
                             id: 'reps',
+                            position: 'right',
                             ticks: {
                                 fontColor: "rgb(33, 150, 243)",
                                 stacked: true,
@@ -92,6 +98,9 @@ export class ExercisesDetailViewComponent {
                                 scalePositionLeft: true,
                                 max: Math.max.apply(null, reps) + 2
                             },
+                            gridLines: {
+                                color: "rgba(0, 0, 0, 0)",
+                            }
                         },
                         {
                             id: 'weight',
@@ -110,7 +119,7 @@ export class ExercisesDetailViewComponent {
     }
     
     getAverage(list, key) {
-        return (list.reduce((a, b) => a + parseInt(b[key], 10), 0)) / list.length
+        return (list.reduce((a, b) => a + parseInt(b[key], 10), 0)) / list.length || null
     }
 
     async chartMacroOutletInit() {
@@ -122,11 +131,14 @@ export class ExercisesDetailViewComponent {
         let averageWeights = []
 
         for (let exercise of exercises) {
-            labels.push(exercise.date)
-            // console.log(exercise)
             let averageRep = this.getAverage(exercise.sets, 'reps')
             let averageWeight = this.getAverage(exercise.sets, 'weight')
             
+            if (!averageRep || !averageWeight) {
+                continue
+            }
+            
+            labels.push(exercise.date)
             averageReps.push(averageRep)
             averageWeights.push(averageWeight)
         }
@@ -158,10 +170,14 @@ export class ExercisesDetailViewComponent {
                     }
                 ]},
             options: {
+                legend: {
+                    display: false
+                },
                 scales: {
                     yAxes: [
                         {
                             id: 'reps',
+                            position: 'right',
                             ticks: {
                                 fontColor: "rgb(33, 150, 243)",
                                 stacked: true,
@@ -169,6 +185,9 @@ export class ExercisesDetailViewComponent {
                                 scalePositionLeft: true,
                                 max: Math.max.apply(null, averageReps) + 2
                             },
+                            gridLines: {
+                                color: "rgba(0, 0, 0, 0)",
+                            }
                         },
                         {
                             id: 'weight',

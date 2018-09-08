@@ -9,9 +9,8 @@ export class Exercises {
         const db = await getDb()
 
         return await db[constants.databases.exercises.name]
-                .where('movement')
-                .equals(movement)  
-                .sortBy(constants.databases.exercises.defaultOrderBy)  
+            .filter(e => e.movement.includes(movement) || e.tags.find(t => t.includes(movement)))  
+            .sortBy(constants.databases.exercises.defaultOrderBy)  
     }
 
     static async getAll(from?, to?, orderBy = constants.databases.exercises.defaultOrderBy):Promise<Exercise[]> {
@@ -47,7 +46,7 @@ export class Exercises {
             .first()
     }
     
-    static async add({ date, movement, sets }):Promise<void> {
+    static async add({ date, movement, sets = [], tags = [], notes = '' }):Promise<void> {
         if (!movement || !moment(date).isValid()) {
             throw new Error('Invalid input')
         }
@@ -55,11 +54,11 @@ export class Exercises {
         date = moment(date).format(constants.timeFormat)
 
         const db = await getDb()
-        await db[constants.databases.exercises.name].add({ date, movement, sets })
+        await db[constants.databases.exercises.name].add({ date, movement, sets, tags, notes })
         return
     }
     
-    static async update(id, { date, movement, sets }):Promise<void> {
+    static async update(id, { date, movement, sets, tags, notes }:Exercise):Promise<void> {
         const update = {}
 
         if (date && !moment(date).isValid()) {
@@ -68,8 +67,10 @@ export class Exercises {
 
         if (date) { update['date'] = date }
         if (movement) { update['movement'] = movement }
+        if (notes) { update['notes'] = notes }
+        if (tags) { update['tags'] = tags }
         if (sets) { 
-            sets = sets.filter(({ reps, weight }) => reps || weight)
+            sets = sets.filter(({ reps, weight }) => reps && weight)
             update['sets'] = sets 
         }
 
@@ -103,10 +104,12 @@ export class Exercises {
         const movements:string[] = []
 
         for (let exercise of exercises) {
-            let m = exercise.movement
-            if (!movements.includes(m) && m.includes(movement)) {
-                movements.push(m)
-            }
+            const alreadyFound = movements.includes(exercise.movement)
+            const includesMovement = exercise.movement.includes(movement)
+            const hasTag = exercise.tags.find(t => t.includes(movement))
+            if (!alreadyFound && (includesMovement || hasTag)) {
+                movements.push(exercise.movement)
+            }    
         }
         
         return movements

@@ -3,7 +3,7 @@ export const constants = {
     databases: {
         exercises: {
             name: 'exercises',
-            schema: ['++id','_date','date','movement','sets'],
+            schema: ['++id','_date','date','movement','sets', 'tags', 'notes'],
             defaultOrderBy: 'date'
         }
     },

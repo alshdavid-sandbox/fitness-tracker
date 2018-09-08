@@ -15,38 +15,27 @@ export class ExercisesAddViewComponent {
     public exercise: Exercise = {
         date: moment().format(timeFormat),
         movement: '',
-        sets: [
-            { reps: null, weight: null },
-            { reps: null, weight: null },
-            { reps: null, weight: null },
-            { reps: null, weight: null }
-        ],
-    }
-    public accordionState = {
-        date: false,
-        movement: true,
-        sets: false
+        notes: '',
+        tags: [],
+        sets: [],
     }
 
     constructor(
         private ngRouter: Router
     ) {}
 
-    addRep() {
+    addSet() {
         this.exercise.sets.push({ reps: undefined, weight: undefined })
+    }
+
+    addTag(v) {
+        if (v) {
+            this.exercise.tags.push(v)
+        }
     }
 
     removeRep(i) {
         this.exercise.sets.splice(i, 1)
-    }
-
-    openTab(tab) {
-        let state = this.accordionState[tab]
-
-        Object.keys(this.accordionState)
-            .forEach(i => this.accordionState[i] = false)
-
-        this.accordionState[tab] = !state
     }
 
     async search() {
@@ -54,13 +43,14 @@ export class ExercisesAddViewComponent {
             this.suggestions = []
             return 
         }
-        this.suggestions = await api.searchMovements(this.exercise.movement.toLocaleLowerCase())
-        console.log(this.suggestions)
+        this.suggestions = await api.searchMovements(this.exercise.movement)
     }
 
-    selectSearch(value) {
+    async selectSearch(value) {
         this.suggestions = []
-        this.exercise.movement = value
+        const exercises = await api.getExerciseByMovement(value)
+        this.exercise = exercises[exercises.length - 1]
+        this.exercise.notes = ''        
     }
 
     async submit() {
@@ -69,7 +59,6 @@ export class ExercisesAddViewComponent {
             return
         }
         output.sets = output.sets.filter(({ reps, weight }) => reps || weight)
-        console.log(output)
         await api.addExercise(output)
 
         this.ngRouter.navigate(['/exercises'])

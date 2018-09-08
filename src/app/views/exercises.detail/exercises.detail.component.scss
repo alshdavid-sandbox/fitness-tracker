@@ -1,13 +1,76 @@
+@import "../../../styles/variables.scss";
+
 :host {
     padding: 0 3%;
 }
 
-h5, h3 {
-    text-align: center;
-    font-weight: 300; 
-    text-transform: capitalize;
+section {
+    &.themed {
+        background-color: $color-2;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+
+    &.chart {
+        margin-bottom: 12px;
+
+        .title {
+            min-height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: #eee;
+            margin-bottom: 12px;
+
+            .options {
+                background-color: #fafafa;
+            }
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-between;
+            color: rgb(244, 67, 54);
+            
+            span {
+                margin-bottom: 16px;
+                font-weight: 400;
+
+                &:last-child {
+                    color: rgb(33, 150, 243);
+                }
+            }
+        }
+    }
 }
 
-h5 {
-    margin-bottom: 30px;
+.movement {
+    font-size: 20px;
+    text-transform: capitalize;
+    margin-bottom: 4px;
+}
+
+.date {
+    font-weight: 300;
+}
+
+.title {
+    margin-bottom: 4px;
+}
+
+.notes {
+    font-weight: 300;
+}
+
+.tag {
+    display: inline-block;
+    line-height: 24px;
+    height: 24px;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 0 8px;
+    background-color: $color-1;
+    color: white;
+    border-radius: 8px;
+    margin: 0 8px 0 0;
+    text-transform: lowercase;
 }

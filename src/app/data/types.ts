@@ -9,4 +9,6 @@ export interface Exercise {
     date: string
     movement: string
     sets: Set[]
+    tags: string[]
+    notes: string
 }
