@@ -13,18 +13,24 @@ export class SettingsViewComponent {
     async export() {
         let output = {
             settings: {},
-            exercises: []
+            exercises: [],
+            bodyweights: []
         }
+
+        let bodyweights = await api.getBodyweights()
         let exercises = await api.getExercises()
-        exercises.sort((left, right) => moment(right.date).diff(moment(left.date)))
-        
+
         for (let exercise of exercises) {
             delete exercise.id
-            exercise.sets = exercise.sets.map(({ reps, weight }) => ({ reps, weight }));
-            exercise.movement = exercise.movement.toLocaleLowerCase()
+        }
+
+        for (let bodyweight of bodyweights) {
+            delete bodyweight.id
         }
 
         output.exercises = exercises
+        output.bodyweights = bodyweights
+
         var textToSave = JSON.stringify(output, null, 4)
 
         var hiddenElement = document.createElement('a');
@@ -48,6 +54,7 @@ export class SettingsViewComponent {
             alert('Imported')
             await api.removeAll()
             await api.addExercises(result.exercises)
+            await api.addBodyweights(result.bodyweights)
         } catch (error) {
             console.error(error)
         }

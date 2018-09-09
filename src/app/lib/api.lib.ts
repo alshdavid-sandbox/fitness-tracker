@@ -32,7 +32,9 @@ export function removeExerciseById(id):Promise<void> {
 }
 
 export async function removeAll():Promise<void> {
-    return db.Exercises.removeAll()
+    await db.Exercises.removeAll()
+    await db.BodyWeight.removeAll()
+    return
 }
 
 export async function searchMovements(q):Promise<string[]> {
@@ -50,6 +52,12 @@ export async function getBodyweight(id):Promise<IBodyWeight> {
 
 export async function addBodyweight({ date, weight }):Promise<void> {
     return db.BodyWeight.add({ date, weight })
+}
+
+export async function addBodyweights(bodyWeights:IBodyWeight[]):Promise<void> {
+    for (let bodyWeight of bodyWeights) {
+        await this.addBodyweight(bodyWeight)
+    }
 }
 
 export async function updateBodyweight({ id, date, weight }:IBodyWeight):Promise<void> {
@@ -75,7 +83,8 @@ export const api = {
     getBodyweight,
     addBodyweight,
     removeBodyweight,
-    updateBodyweight
+    updateBodyweight,
+    addBodyweights
 }
 
 // For debug
