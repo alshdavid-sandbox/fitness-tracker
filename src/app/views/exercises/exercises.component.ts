@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { Component } from '@angular/core';
-import { api, toolbarItems, scrollToLastLocation, Exercise, generateAverageString } from '../../lib';
+import { api, toolbarItems, scrollToLastLocation, IExercise, generateAverageString } from '../../lib';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -17,6 +17,9 @@ export class ExercisesViewComponent {
     public filter = new Subject()
     public items = {}
 
+    ngOnDestroy() {
+        this.filter.unsubscribe()
+    }
 
     async ngOnInit() {
         this.processList(await api.getExercises())        
@@ -30,7 +33,7 @@ export class ExercisesViewComponent {
         scrollToLastLocation('/exercises')
     }
 
-    processList(exercises: Exercise[]) {
+    processList(exercises: IExercise[]) {
         this.items = {}
         for (let exercise of exercises) {
             if (!this.items[exercise.date]) {

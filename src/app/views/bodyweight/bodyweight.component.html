@@ -1,12 +1,33 @@
 <app-navbar>
     <app-navbar-left>Body Weight</app-navbar-left>
     <app-navbar-right 
-        [routerLink]="['/exercises', 'add']">
+        [routerLink]="['/bodyweight', 'add']">
         <i class='fas fa-plus'></i>
     </app-navbar-right>
 </app-navbar>
 
 <main>
+    <div class="selector">
+        <select (input)="makeChart($event.target.value)">
+            <option value="7">7 Days</option>
+            <option value="14">14 Days</option>
+            <option value="30">30 Days</option>
+            <option value="60">60 Days</option>
+            <option value="120">120 Days</option>
+            <option value="365">365 Days</option>
+        </select>
+    </div>
+    <div class="chart">
+        <canvas #chartBodyweight></canvas>
+    </div>
+    <div class="heading">Weights</div>
+    <div 
+        *ngFor="let bodyweight of bodyweights"
+        [routerLink]="['/', 'bodyweight', 'edit', bodyweight.id]"
+        class="bodyweight">
+        <span>{{ bodyweight.weight }} kg</span>
+        <span>{{ moment(bodyweight.date).format('dddd / DD MMM YY') }}</span>
+    </div>
 </main>
 
 <app-toolbar>

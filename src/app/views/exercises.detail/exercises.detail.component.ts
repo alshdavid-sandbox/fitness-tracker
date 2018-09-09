@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'
-import { api, Exercise } from '../../lib'
+import { ActivatedRoute } from '@angular/router'
+import { api, IExercise } from '../../lib'
 import moment from 'moment'
 import Chart from 'chart.js'
 
@@ -18,7 +18,7 @@ export class ExercisesDetailViewComponent {
 
     public moment = moment
 
-    public exercise: Exercise = {
+    public exercise: IExercise = {
         id: '',
         date: '',
         movement: '',

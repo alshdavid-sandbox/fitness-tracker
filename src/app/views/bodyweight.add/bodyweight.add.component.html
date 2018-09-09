@@ -1,0 +1,36 @@
+<app-navbar>
+    <app-navbar-left 
+        [routerLink]="['/bodyweight']">
+        <i class="fas fa-chevron-left"></i> Cancel
+    </app-navbar-left>
+    <app-navbar-center>
+        New Bodyweight
+    </app-navbar-center>
+    <app-navbar-right (click)="submit()">
+        Save
+    </app-navbar-right>
+</app-navbar>
+
+<main class="container">  
+    <label class="field">
+        <input 
+            type="date" 
+            [(ngModel)]="bodyweight.date"/>     
+    </label>  
+   
+    <label class="field">
+        <input
+            type="number" 
+            placeholder="Weight" 
+            [(ngModel)]="bodyweight.weight"
+            (keydown.enter)="submit()" />
+    </label>
+
+    <app-button 
+        class="submit"
+        small    
+        theme="primary"
+        (click)="submit()">
+        Save
+    </app-button>
+</main>

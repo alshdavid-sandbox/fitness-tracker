@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import moment from 'moment'
-import { api, Exercise } from '../../lib'
+import { api, IExercise } from '../../lib'
 const timeFormat = 'YYYY-MM-DD'
 
 @Component({
@@ -12,7 +12,7 @@ const timeFormat = 'YYYY-MM-DD'
 export class ExercisesAddViewComponent {
     public moment = moment
     public suggestions:string[] = []
-    public exercise: Exercise = {
+    public exercise: IExercise = {
         date: moment().format(timeFormat),
         movement: '',
         notes: '',

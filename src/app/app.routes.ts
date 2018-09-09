@@ -8,6 +8,8 @@ import { ExercisesDetailViewComponent } from './views/exercises.detail/exercises
 import { BodyweightViewComponent } from './views/bodyweight/bodyweight.component'
 import { SettingsViewComponent } from './views/settings/settings.component'
 import { CaloriesViewComponent } from './views/calories/calories.component'
+import { BodyweightAddViewComponent } from './views/bodyweight.add/bodyweight.add.component';
+import { BodyweightEditViewComponent } from './views/bodyweight.edit/bodyweight.edit.component';
 
 
 export const routes: Routes = [
@@ -17,7 +19,11 @@ export const routes: Routes = [
     { path: 'exercises/add',            component: ExercisesAddViewComponent },
     { path: 'exercises/detail/:id',     component: ExercisesDetailViewComponent },
     { path: 'exercises/edit/:id',       component: ExercisesEditViewComponent },
+    
     { path: 'bodyweight',               component: BodyweightViewComponent },
+    { path: 'bodyweight/add',           component: BodyweightAddViewComponent },
+    { path: 'bodyweight/edit/:id',      component: BodyweightEditViewComponent },
+
     { path: 'calories',                 component: CaloriesViewComponent },
     { path: 'settings',                 component: SettingsViewComponent },
     

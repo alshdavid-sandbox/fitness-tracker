@@ -1,21 +1,21 @@
-import { Exercise, Set } from './types'
-import { getDb } from './db'
+import { IExercise } from './types'
+import { getCol } from './db'
 import { constants } from '../app.constants'
 import moment from 'moment'
 
 export class Exercises {
-    static async getByMovement(movement):Promise<Exercise[]> {
-        movement = movement.toLowerCase()
-        const db = await getDb()
+    static defaultOrderBy = constants.databases.exercises.defaultOrderBy
+    static db = () => getCol(constants.databases.exercises.name)
 
-        return await db[constants.databases.exercises.name]
+    static async getByMovement(movement):Promise<IExercise[]> {
+        movement = movement.toLowerCase()
+
+        return (await this.db())
             .filter(e => e.movement.includes(movement) || e.tags.find(t => t.includes(movement)))  
             .sortBy(constants.databases.exercises.defaultOrderBy)  
     }
 
-    static async getAll(from?, to?, orderBy = constants.databases.exercises.defaultOrderBy):Promise<Exercise[]> {
-        const db = await getDb()
-
+    static async getAll(from?, to?, orderBy = this.defaultOrderBy):Promise<IExercise[]> {
         if (from || to) {
             let fromDate = moment(from).format(constants.timeFormat)
             if (!moment(fromDate).isValid()) {
@@ -25,24 +25,24 @@ export class Exercises {
             if (!moment(toDate).isValid()) {
                 toDate = moment().format(constants.timeFormat)
             }
-            return await db[constants.databases.exercises.name]
+            return (await this.db())
                 .where('date')
                 .between(fromDate, toDate)  
                 .orderBy(orderBy)  
+                .reverse()
                 .toArray()
         }
 
-        return await db[constants.databases.exercises.name] 
+        return (await this.db())
             .orderBy(orderBy)  
+            .reverse()
             .toArray()
     }
 
-    static async getById(id):Promise<Exercise> {
-        id = parseInt(id)
-        const db = await getDb()
-        return await db[constants.databases.exercises.name] 
+    static async getById(id):Promise<IExercise> {
+        return (await this.db())
             .where('id')
-            .equals(id)
+            .equals(parseInt(id))
             .first()
     }
     
@@ -53,16 +53,15 @@ export class Exercises {
         movement = movement.toLowerCase()
         date = moment(date).format(constants.timeFormat)
 
-        const db = await getDb()
-        await db[constants.databases.exercises.name].add({ date, movement, sets, tags, notes })
-        return
+        return (await this.db())
+            .add({ date, movement, sets, tags, notes })
     }
     
-    static async update(id, { date, movement, sets, tags, notes }:Exercise):Promise<void> {
+    static async update(id, { date, movement, sets, tags, notes }:IExercise):Promise<void> {
         const update = {}
 
         if (date && !moment(date).isValid()) {
-            throw new Error('Invalid input')
+            throw new Error('Invalid date')
         }
 
         if (date) { update['date'] = date }
@@ -74,27 +73,21 @@ export class Exercises {
             update['sets'] = sets 
         }
 
-        const db = await getDb()
-        return db[constants.databases.exercises.name]
+        return (await this.db())
             .where("id")
-            .equals(id)
+            .equals(parseInt(id))
             .modify(update)
     }
 
     static async remove(id):Promise<void> {
-        id = parseInt(id)
-        const db = await getDb()
-
-        await db[constants.databases.exercises.name]
+        return (await this.db())
             .where("id")
-            .equals(id)
-            .delete();
+            .equals(parseInt(id))
+            .delete()
     }
 
     static async removeAll():Promise<void> {
-        const db = await getDb()
-
-        await db[constants.databases.exercises.name]
+        return (await this.db())
             .clear();
     }
 

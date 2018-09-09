@@ -13,7 +13,7 @@
 </section>
 
 <main>
-    <div *ngFor="let date of Object.keys(items).reverse()">
+    <div *ngFor="let date of Object.keys(items)">
         <app-date-item 
             [date]="moment(date).format('dddd / DD MMMM')"
         ></app-date-item>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import moment from 'moment'
-import { api, Exercise } from '../../lib'
+import { api, IExercise } from '../../lib'
 
 @Component({
     selector: 'app-view-exercises-edit',
@@ -11,7 +11,7 @@ import { api, Exercise } from '../../lib'
 export class ExercisesEditViewComponent {
     public moment = moment
     public suggestions = []
-    public exercise: Exercise = {
+    public exercise: IExercise = {
         id: '',
         date: '',
         movement: '',
