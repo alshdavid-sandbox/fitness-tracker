@@ -1,5 +1,4 @@
 export interface ISet {
-    excercise?: string
     reps: number
     weight: number
 }

@@ -13,22 +13,23 @@ export class BodyweightViewComponent {
     @ViewChild('chartBodyweight')
     private chartBodyweight
     private chart
+    public range = 14
 
     public moment = moment
     public toolbarItems = toolbarItems
     public bodyweights:IBodyWeight[] = []
 
     async ngOnInit() {
+        this.chartBodyweight.nativeElement.height = window.innerHeight - 400
+        this.chartBodyweight.nativeElement.width = window.innerWidth
+        this.range = parseInt(localStorage.getItem('bodyweight.range')) || 14
         this.bodyweights = await api.getBodyweights()
-        this.makeChart()
+        this.makeChart(this.range)
     }
 
-    log(x) {
-        console.log(x)
-    }
-
-    async makeChart(days:any = 14) {
+    async makeChart(days:any) {
         days = parseInt(days)
+        localStorage.setItem('bodyweight.range', days)
         
         if (this.chart) {
             this.chart.destroy()
@@ -51,8 +52,6 @@ export class BodyweightViewComponent {
             })
         }
 
-        this.chartBodyweight.nativeElement.height = window.innerHeight - 400
-        this.chartBodyweight.nativeElement.width = window.innerWidth
         this.chart = new Chart(this.chartBodyweight.nativeElement, {
             type: 'line',
             data: {
@@ -78,8 +77,8 @@ export class BodyweightViewComponent {
                             ticks: {
                                 fontColor: "rgb(33, 150, 243)",
                                 stacked: true,
-                                max: Math.max(...data.map(x=>x.y)) + 2,
-                                min: Math.min(...data.map(x=>x.y)) - 2
+                                max: Math.ceil(Math.max(...data.map(x=>x.y))),
+                                min: Math.floor(Math.min(...data.map(x=>x.y)))
                             },
                             gridLines: {
                                 color: "rgba(0, 0, 0, 0.05)",
