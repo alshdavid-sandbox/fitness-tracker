@@ -1,0 +1,22 @@
+:host {
+    display: block;
+    height: 46px;
+}
+
+section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-color: #e65100;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    line-height: 46px;
+    padding: 0 8px;
+
+    /deep/ strong {
+        font-weight: 500;
+    }
+}

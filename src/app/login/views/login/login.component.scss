@@ -1,0 +1,35 @@
+:host {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f57c00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.logo {
+    width: 220px;
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 32px;
+    padding-bottom: 200px;
+}
+
+.sign-in {
+    position: fixed;
+    bottom: 3%;
+    text-align: center;
+}
+
+.social-button {
+    width: 220px;
+}
+
+

@@ -1,0 +1,73 @@
+<app-navbar>
+    <a
+        routerLink="/exercises/list"
+        left>
+        <app-icon src="chevron-left"></app-icon>
+        Cancel
+    </a>
+    <strong right>New Exercise</strong>
+</app-navbar>
+
+<div class="entry date">
+    <app-date></app-date>
+</div>
+
+<div class="entry movement">
+    <input
+        type="text"
+        class="capitalize"
+        placeholder="Enter Movement"
+        [(ngModel)]="movement"
+        (input)="searchMovement()" >
+    <div class="suggestions" *ngIf="suggestions.length">
+        <div
+            *ngFor="let suggestion of suggestions"
+            (click)="selectSearch(suggestion)">
+            {{ suggestion.name }}
+        </div>
+    </div>
+</div>
+
+<div class="entry sets">
+    <div
+        class="sets"
+        *ngIf="sets.length">
+        <div
+            class="set"
+            *ngFor="let set of sets; let i = index">
+            <input
+                type="text"
+                class="reps"
+                placeholder="Enter Reps"
+                [(ngModel)]="set.reps">
+            <input
+                type="text"
+                class="sets"
+                placeholder="Enter Weight"
+                [(ngModel)]="set.weight">
+            <app-icon
+                (click)="removeSetItem(i)"
+                src="times">
+            </app-icon>
+        </div>
+    </div>
+    <app-button
+        theme="inverted outline"
+        (click)="addSetItem()">
+        Add Set
+    </app-button>
+</div>
+
+<!-- <div class="entry tags">
+    <input type="text" placeholder="Enter Tags">
+</div>
+
+<div class="entry notes">
+    <input type="text" placeholder="Enter Notes">
+</div> -->
+
+<div class="submit">
+    <app-button (click)="submit()">
+        Save Exercise
+    </app-button>
+</div>

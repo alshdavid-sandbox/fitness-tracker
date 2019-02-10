@@ -1,0 +1,69 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 0 0 8px;
+    border-bottom: 1px solid #ef6c00;
+}
+
+.right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .things {
+        background-color: #fff3e0;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        padding: 4px 0 4px 8px;
+        box-sizing: border-box;
+    }
+
+    >div>div {
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 12px;
+    }
+
+    .sets,
+    .reps {
+        &:before {
+            display: inline-block;
+            font-size: 12px;
+            padding-right: 4px;
+            color: #333;
+        }
+    }
+
+    .sets {
+        &:before {
+            content: 'Sets';
+        }
+    }
+
+    .reps {
+        &:before {
+            content: 'Reps';
+        }
+    }
+
+    .weight {
+        font-size: 20px;
+        background-color: lighten(#ffe0b2, 7%);
+        line-height: 50px;
+        padding: 0 8px;
+
+        &:after {
+            content: 'kg';
+            display: inline-block;
+            color: #333;
+        }
+    }
+}

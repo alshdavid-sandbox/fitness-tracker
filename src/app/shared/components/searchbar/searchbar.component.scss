@@ -1,0 +1,28 @@
+:host {
+    display: block;
+    height: 46px;
+}
+
+section  {
+    position: fixed;
+    top: 92px;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46px;
+    // border-bottom: 1px solid #ef6c00;
+}
+
+input {
+    background-color: white;
+    width: calc(100% - 16px);
+    box-sizing: border-box;
+    height: 46px;
+    outline: none;
+    border: none;
+    padding: 0 8px;
+    font-size: 14px;
+}

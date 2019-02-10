@@ -1,0 +1,11 @@
+<app-navbar>
+    <strong left>Fitness Tracker</strong>
+</app-navbar>
+<app-toolbar>
+    <a
+        *ngFor="let item of toolbarItems"
+        [routerLinkActive]="['active']"
+        [routerLink]="item.link">
+        {{ item.text }}
+    </a>
+</app-toolbar>

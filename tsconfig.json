@@ -9,14 +9,35 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "~env": ["src/environments/environment"],
+
+      "~shared": ["src/app/shared/shared.module"],
+      "~shared/*": ["src/app/shared/*"],
+
+      "~login": ["src/app/shared/login.module"],
+      "~login/*": ["src/app/login/*"],
+
+      "~exercises": ["src/app/exercises/exercises.module"],
+      "~exercises/*": ["src/app/exercises/*"],
+
+      "~calories": ["src/app/calories/calories.module"],
+      "~calories/*": ["src/app/calories/*"],
+
+      "~bodyWeight": ["src/app/body-weight/body-weight.module"],
+      "~bodyWeight/*": ["src/app/body-weight/*"],
+
+      "~profile": ["src/app/profile/profile.module"],
+      "~profile/*": ["src/app/profile/*"]
+    }
   }
 }

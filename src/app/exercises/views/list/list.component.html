@@ -1,0 +1,28 @@
+<app-navbar>
+    <strong left>Fitness Tracker</strong>
+    <a
+        right
+        routerLink="/exercises/add">
+        Add
+    </a>
+</app-navbar>
+<app-toolbar>
+    <a
+        *ngFor="let item of toolbarItems"
+        [routerLinkActive]="['active']"
+        [routerLink]="item.link">
+        {{ item.text }}
+    </a>
+</app-toolbar>
+<app-searchbar></app-searchbar>
+
+<app-list-date
+    date="15 April 2019">
+</app-list-date>
+
+<app-list-item
+    exercise="Bench Press"
+    sets="4"
+    reps="6"
+    weight="53">
+</app-list-item>
