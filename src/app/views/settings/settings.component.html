@@ -4,11 +4,22 @@
 
 <main class="container">
     <br>
-    <h5>Export / Import</h5>
+    <h5>Export / Import form Cloud</h5>
+    <app-button 
+        (click)="exportToCould()"
+        theme="primary"
+        >Export</app-button>
+    <app-button
+        (click)="importFromCloud()"
+        >Import
+    </app-button>
+    <br>
+    <h5>Export / Import form File</h5>
     <app-button 
         (click)="export()"
         theme="primary"
         >Export</app-button>
+    
     <app-button
         (click)="import()"
         >Import
@@ -24,3 +35,9 @@
         [text]="toolbarItem.text"
     ></app-toolbar-item>
 </app-toolbar>
+
+<input 
+    #fileinput 
+    style="display:none" 
+    type="file" 
+    accept=".json">

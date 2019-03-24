@@ -36,7 +36,7 @@ export class BodyweightViewComponent {
         }
 
         const date = moment().subtract(days, 'days').format(constants.timeFormat)
-        const selection = await api.getBodyweights(date)
+        const selection = await api.getBodyweights(date, moment().add(1, 'days'))
 
         let labels = []
         let data = []

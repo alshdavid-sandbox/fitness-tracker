@@ -1,6 +1,6 @@
-import moment from 'moment'
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { toolbarItems, api } from '../../lib';
+import * as firebase from '~/platform/firebase'
 
 @Component({
     selector: 'app-view-settings',
@@ -10,31 +10,46 @@ import { toolbarItems, api } from '../../lib';
 export class SettingsViewComponent {
     public toolbarItems = toolbarItems
 
-    async export() {
-        let output = {
+    @ViewChild('fileinput')
+    private fileInput: ElementRef
+
+    async prepareExport() {
+        const output = {
             settings: {},
             exercises: [],
             bodyweights: []
         }
-
         let bodyweights = await api.getBodyweights()
         let exercises = await api.getExercises()
-
         for (let exercise of exercises) {
             delete exercise.id
         }
-
         for (let bodyweight of bodyweights) {
             delete bodyweight.id
         }
-
         output.exercises = exercises
         output.bodyweights = bodyweights
+        return output
+    }
 
+    async exportToCould() {
+        const output = await this.prepareExport()
+        await firebase.set(output)
+        alert('Exported')
+    }
+
+    async importFromCloud() {
+        const result = await firebase.get()
+        await api.removeAll()
+        await api.addExercises(result.exercises)
+        await api.addBodyweights(result.bodyweights)
+        alert('Imported')
+    }
+
+    async export() {
+        const output = await this.prepareExport()
         var textToSave = JSON.stringify(output, null, 4)
-
-        var hiddenElement = document.createElement('a');
-
+        var hiddenElement = document.createElement('a')
         hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave)
         hiddenElement.target = '_blank'
         hiddenElement.download = 'exercises_export.json'
@@ -43,44 +58,19 @@ export class SettingsViewComponent {
     }
 
     async import() {
-        try {
-            alert('This will replace all of your records')
-            let result:any = await this.getJSONFromFileSelector()
-            let confirmed = confirm('Are you sure you want to do this?')
-            if (!confirmed) {
-                alert('Canceled')
-                return
+
+        this.fileInput.nativeElement.onchange = async (inputEvent:any) => {
+            try {
+                const result:any = await this.getJSONFromFileReader(inputEvent.target.files[0])
+                alert('Imported')
+                await api.removeAll()
+                await api.addExercises(result.exercises)
+                await api.addBodyweights(result.bodyweights)
+            } catch (error) {
+                console.log(error)
             }
-            alert('Imported')
-            await api.removeAll()
-            await api.addExercises(result.exercises)
-            await api.addBodyweights(result.bodyweights)
-        } catch (error) {
-            console.error(error)
         }
-    }
-
-    getJSONFromFileSelector() {
-        return new Promise((res, rej) => {
-            let completed = false
-            let input = document.createElement('input')
-            input.type = 'file'
-            input.accept = '.json'
-
-            input.onchange = async (inputEvent:any) => {
-                try {
-                    res(await this.getJSONFromFileReader(inputEvent.target.files[0]))
-                } catch (error) {
-                    rej(error)
-                }
-            }
-
-            input.click()
-
-            document.addEventListener('click', (e) => {
-                console.log('aborted')
-            })
-        })
+        this.fileInput.nativeElement.click()
     }
 
     getJSONFromFileReader(file) {

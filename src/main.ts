@@ -1,12 +1,21 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import * as firebase from '~/platform/firebase'
+import { environment } from '~env';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+void async function() {
+  await firebase.init(environment.firebaseConfig)
+  await firebase.getSessionOrLogin()
+
+  try {
+    await platformBrowserDynamic().bootstrapModule(AppModule)
+  } catch (error) {
+    console.log(error)
+  }
+}()
+

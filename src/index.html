@@ -19,8 +19,31 @@
         .catch(function(err) { console.log('ServiceWorker registration failed: ', err) })
     }
   </script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script> -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    const config = {
+      apiKey: "AIzaSyBiLXZu7_OrJDzDo1Jm14wD6KeGWpWvsMU",
+      authDomain: "fitness-tracker-me.firebaseapp.com",
+      databaseURL: "https://fitness-tracker-me.firebaseio.com",
+      projectId: "fitness-tracker-me",
+      storageBucket: "fitness-tracker-me.appspot.com",
+      messagingSenderId: "821091724922"
+    };
+    firebase.initializeApp(config)
+    window.auth = {}
+  </script> -->
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div 
+      style="
+        line-height: 100vh; 
+        text-align: center;
+        font-size: 20px;">
+        Loading...
+    </div>
+  </app-root>
 </body>
 </html>

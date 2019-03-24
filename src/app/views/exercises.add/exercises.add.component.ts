@@ -49,8 +49,10 @@ export class ExercisesAddViewComponent {
     async selectSearch(value) {
         this.suggestions = []
         const exercises = await api.getExerciseByMovement(value)
-        this.exercise = exercises[exercises.length - 1]
-        this.exercise.notes = ''        
+        const exercise = exercises[exercises.length - 1]
+        this.exercise.tags = exercise.tags
+        this.exercise.movement = exercise.movement
+        this.exercise.sets = exercise.sets       
     }
 
     async submit() {
