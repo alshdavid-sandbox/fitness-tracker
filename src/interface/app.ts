@@ -1,14 +1,18 @@
+import * as database from '~/platform/database';
 import * as router from '~/platform/router';
-import * as item from '~/platform/item';
+import * as axios from 'axios'
 
-const store = item.createStore()
-const r = router.create()
-
-r.use(router.React('#router-outlet'))
-
-r.path('/', async (req, res) => {
-    const { HomeView } = await import('~/interface/views/home')
-    res.mount(HomeView(store))
-})
-
-r.load()
+void async function main(){
+    const db = await database.connect()
+    const httpClient = axios.default.create()
+    const app = router.create()
+    
+    app.use(router.React('#router-outlet'))
+    
+    app.path('/', async (req, res) => {
+        const { HomeView } = await import('~/interface/views/home')
+        res.mount(HomeView())
+    })
+    
+    app.load()
+}()
