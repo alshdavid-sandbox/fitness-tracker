@@ -1,0 +1,38 @@
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+
+module.exports = {
+    entry: path.join(__dirname, '/src/interface/app.ts'),
+    mode: 'development',
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+    },
+    output: {
+        filename: 'app/index.js',
+        path: path.join(__dirname, 'public')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"
+                ]
+            }
+        ]
+    },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js"],
+        plugins: [
+            new TsconfigPathsPlugin()
+        ]
+    },
+};

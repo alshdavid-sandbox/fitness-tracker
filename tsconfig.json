@@ -1,27 +1,24 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "importHelpers": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "es2015",
+    "target": "es6", 
+    "module": "esnext",  
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "baseUrl": "./",
     "lib": [
-      "es2017",
-      "dom"
+      "dom",
+      "es2017"
     ],
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "jsx": "react",
+    "experimentalDecorators": true,
     "paths": {
-      "~env": ["./src/environments/environment"],
-      "~/*": ["./src/app/*"]
+      "~/*": ["src/*"],
     }
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,7 +1,0 @@
-<div class="title" [ngClass]="{'open': open}" (click)="toggle()">
-    <div *ngIf="!open">{{ value }}</div>
-    <label>{{ label }}</label> 
-</div>
-<div class="content" *ngIf="open">
-    <ng-content></ng-content>
-</div>
