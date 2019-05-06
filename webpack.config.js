@@ -1,9 +1,11 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
+const mode = process.argv.includes('--prod') ? 'production' : 'development'
+
 module.exports = {
     entry: path.join(__dirname, '/src/interface/app.ts'),
-    mode: 'development',
+    mode,
     watchOptions: {
         aggregateTimeout: 300,
         poll: 1000

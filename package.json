@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "build:prod": "webpack --prod",
+    "clean": "rm -rf public/app"
   },
   "keywords": [],
   "author": "",
