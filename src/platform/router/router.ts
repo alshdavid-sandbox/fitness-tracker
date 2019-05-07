@@ -2,6 +2,7 @@ export interface request {}
 
 export interface response {
     mount: any
+    redirect: (path: string) => void
     ctx?: any
 }
 
@@ -29,6 +30,7 @@ export class Router {
         const req = {}
         const res = {
             mount: console.log,
+            redirect: (path: string) => this.navigate(path),
             ctx: {}
         }
         for (const middleware of this.middleware) {

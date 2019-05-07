@@ -1,1 +1,6 @@
 export * from './exercise'
+export * from './add'
+export * from './defaults'
+export * from './get'
+export * from './table'
+export * from './types'
