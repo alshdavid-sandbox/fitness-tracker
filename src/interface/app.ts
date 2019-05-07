@@ -9,6 +9,7 @@ void async function main(){
 
     app.path('/', (req, res) => res.redirect('/exercises'))
 
+    // TODO move this to it's own interface package
     await import('~/interface/exercises')
         .then(f => f.exercisesRoutes(app, db))
 
