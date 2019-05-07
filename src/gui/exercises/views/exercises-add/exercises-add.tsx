@@ -5,7 +5,7 @@ import { useTags, useSets } from './state'
 import * as exercise from '~/platform/exercise'
 import * as router from '~/platform/router';
 import { Navbar } from '~/gui/shared/navbar';
-import { Date, Movement, Tags, Sets } from './partials'
+import { Date, Movement, Tags, Sets } from './components'
 
 interface exerciseForm {
     date: string

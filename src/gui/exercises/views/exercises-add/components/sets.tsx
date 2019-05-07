@@ -9,11 +9,11 @@ export const Sets: any = ({ sets, add, remove, update }: any) => (
                     <input 
                         type="number" 
                         placeholder="Reps" 
-                        onChange={(e) => update(i, e.target.value)}/>
+                        onChange={(e) => update(i, parseInt(e.target.value))}/>
                     <input 
                         type="number" 
                         placeholder="Weight" 
-                        onChange={(e) => update(i, undefined, e.target.value)}/>
+                        onChange={(e) => update(i, undefined, parseInt(e.target.value))}/>
                     <div 
                         onClick={() => remove(i)}>
                         x
