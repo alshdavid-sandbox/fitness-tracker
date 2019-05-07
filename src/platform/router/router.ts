@@ -1,5 +1,9 @@
 export interface request {}
 
+export interface Navigator {
+    navigate: (path: string) => void
+}
+
 export interface response {
     mount: any
     redirect: (path: string) => void

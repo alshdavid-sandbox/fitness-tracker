@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
 import './exercises.scss'
+import React, { useState, useMemo } from 'react';
 import * as exercise from '~/platform/exercise'
+import * as router from '~/platform/router';
 
 const useExercises = (exercises: exercise.Getter) => {
     const [ state, setValue] = useState<any[]>([])
@@ -17,13 +18,13 @@ const itemsList = (items: exercise.Exercise[]) => items.map(item => <div
     </div>
 )
 
-export const HomeView = (exercises: exercise.Getter) => () => {
+export const ExercisesView = (nav: router.Navigator, exercises: exercise.Getter) => () => {
     const state = useExercises(exercises)
 
     return <div className="view-exercises">
         <nav>
             <div>Exercises</div>
-            <div>Add New</div>
+            <div onClick={() => nav.navigate('/exercises/add')}>Add New</div>
         </nav>
         { itemsList(state) }
     </div>

@@ -1,8 +1,5 @@
 import * as database from '~/platform/database';
 import * as router from '~/platform/router';
-import moment from 'moment'
-;(window as any).moment = moment
-
 
 void async function main(){
     const db = await database.connect()
@@ -18,7 +15,17 @@ void async function main(){
             import('~/interface/views/exercises')
         ])
         const exercises = exercise.createStore(db)
-        res.mount(view.HomeView(exercises))
+        res.mount(view.ExercisesView(app, exercises))
+        ;(window as any).exercises = exercises
+    })
+
+    app.path('/exercises/add', async (req, res) => {
+        const [ exercise, view ] = await Promise.all([
+            import('~/platform/exercise'),
+            import('~/interface/views/exercises-add')
+        ])
+        const exercises = exercise.createStore(db)
+        res.mount(view.ExercisesAddView(app))
         ;(window as any).exercises = exercises
     })
 
