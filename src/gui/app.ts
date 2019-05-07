@@ -1,3 +1,4 @@
+import './app.scss'
 import * as database from '~/platform/database';
 import * as router from '~/platform/router';
 
@@ -9,9 +10,16 @@ void async function main(){
 
     app.path('/', (req, res) => res.redirect('/exercises'))
 
-    // TODO move this to it's own interface package
-    await import('~/interface/exercises')
-        .then(f => f.exercisesRoutes(app, db))
+    const [ 
+        { exercisesRoutes }, 
+        { bodyweightRoutes } 
+    ] = await Promise.all([ 
+        import('~/gui/exercises'),
+        import('~/gui/bodyweights')
+    ])
+
+    exercisesRoutes(app, db)
+    bodyweightRoutes(app, db)
 
     app.load()
 }()

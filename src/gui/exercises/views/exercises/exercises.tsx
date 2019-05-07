@@ -2,6 +2,7 @@ import './exercises.scss'
 import React, { useState, useMemo } from 'react';
 import * as exercise from '~/platform/exercise'
 import * as router from '~/platform/router';
+import { Navbar } from '~/gui/shared/navbar';
 
 const useExercises = (exercises: exercise.Getter) => {
     const [ state, setValue] = useState<any[]>([])
@@ -22,10 +23,10 @@ export const ExercisesView = (nav: router.Navigator, exercises: exercise.Getter)
     const state = useExercises(exercises)
 
     return <div className="view-exercises">
-        <nav>
+        <Navbar>
             <div>Exercises</div>
             <div onClick={() => nav.navigate('/exercises/add')}>Add New</div>
-        </nav>
+        </Navbar>
         { itemsList(state) }
     </div>
 }

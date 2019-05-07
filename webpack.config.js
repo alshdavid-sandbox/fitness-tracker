@@ -4,7 +4,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const mode = process.argv.includes('--prod') ? 'production' : 'development'
 
 module.exports = {
-    entry: path.join(__dirname, '/src/interface/app.ts'),
+    entry: path.join(__dirname, '/src/gui/app.ts'),
     mode,
     watchOptions: {
         aggregateTimeout: 300,
