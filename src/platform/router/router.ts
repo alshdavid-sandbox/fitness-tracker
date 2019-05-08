@@ -12,39 +12,52 @@ export interface response {
 
 export type handlerFunc = (req: request, res: response) => void
 
-export class Router {
-    middleware: handlerFunc[] = []
-    routes: Record<string, handlerFunc[]> = {}
+export interface Router {
+    path: (path: string, ...handlers: handlerFunc[]) => void
+    use: (handler: handlerFunc) => void
+    navigate: (path: string) => void
+    load: () => Promise<void>
+    middleware: handlerFunc[]
+    routes: Record<string, handlerFunc[]>
+}
 
-    path(path: string, ...handlers: handlerFunc[]) {
-        this.routes[path] = handlers
+export const path = (r: Router) => (path: string, ...handlers: handlerFunc[]) => {
+    r.routes[path] = handlers
+}
+
+export const use = (r: Router) => (handler: handlerFunc) => {
+    r.middleware.push(handler)
+}
+
+export const navigate = (r: Router) => (path: string) => {
+    window.history.pushState(null, document.title, path)
+    r.load()
+}
+
+export const load = (r: Router) => async () => {
+    const path = window.location.pathname
+    const req = {}
+    const res = {
+        mount: console.log,
+        redirect: (path: string) => r.navigate(path),
+        ctx: {}
     }
-
-    use(handler: handlerFunc) {
-        this.middleware.push(handler)
+    for (const middleware of r.middleware) {
+        await middleware(req, res)
     }
-
-    navigate(path: string) {
-        window.history.pushState(null, document.title, path)
-        this.load()
-    }
-
-    async load() {
-        const path = window.location.pathname
-        const req = {}
-        const res = {
-            mount: console.log,
-            redirect: (path: string) => this.navigate(path),
-            ctx: {}
-        }
-        for (const middleware of this.middleware) {
-            await middleware(req, res)
-        }
-        for (const handler of this.routes[path]) {
-            await handler(req, res)
-        }
+    for (const handler of r.routes[path]) {
+        await handler(req, res)
     }
 }
 
-export const create = () => new Router()
-
+export const create = (): Router => {
+    const r: any = {
+        middleware: [],
+        routes: {},
+    }
+    r.path = path(r)
+    r.use = use(r)
+    r.navigate = navigate(r)
+    r.load = load(r)
+    return r
+}

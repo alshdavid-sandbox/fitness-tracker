@@ -10,7 +10,7 @@ export const createStore = (db: Dexie): Store => {
         getBetweenDates: getBetweenDates(db),
         getById: getById(db),
         add: add(db)
-    } as any //TODO impliment methods
+    } as any //TODO impliment other methods
 }
 
 
