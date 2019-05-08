@@ -3,24 +3,17 @@ import React, { useState } from 'react';
 import moment from 'moment'
 import { useTags, useSets } from './state'
 import * as exercise from '~/platform/exercise'
-import * as router from '~/platform/router';
-import { Navbar } from '~/gui/shared/navbar';
+import * as express from 'express-browser';
+import { Navbar } from '~/gui/shared/components';
 import { Date, Movement, Tags, Sets } from './components'
 
-interface exerciseForm {
-    date: string
-    movement: string
-    tags: string[]
-    sets: exercise.Set[]
-}
-
 export const ExercisesAddView = (
-    nav: router.Navigator, 
+    nav: express.Navigator,
     exercises: exercise.Adder
 ) => () => {
     const { tags, inputTag, removeTag } = useTags()
     const { sets, addSet, removeSet, updateSet } = useSets()
-    const [ date, setDate ] = useState<string>(moment().format('YYYY-MM-DD')) 
+    const [ date, setDate ] = useState<string>(moment().format('YYYY-MM-DD'))
     const [ movement, setMovement ] = useState<string>('')
 
     const goBack = () => nav.navigate('/exercises')
@@ -42,22 +35,22 @@ export const ExercisesAddView = (
             <div onClick={() => goBack()}>Cancel</div>
         </Navbar>
         <main className="content">
-            <Date 
-                value={date} 
+            <Date
+                value={date}
                 set={setDate}/>
-            <Movement 
+            <Movement
                 value={movement}
                 set={setMovement} />
-            <Tags 
-                tags={tags} 
+            <Tags
+                tags={tags}
                 input={inputTag}
                 remove={removeTag} />
-            <Sets 
-                sets={sets} 
-                add={addSet} 
+            <Sets
+                sets={sets}
+                add={addSet}
                 remove={removeSet}
                 update={updateSet} />
-            <button 
+            <button
                 onClick={(e: any) => save()}>
                 Save
             </button>

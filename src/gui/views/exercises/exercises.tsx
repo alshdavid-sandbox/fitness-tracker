@@ -1,13 +1,13 @@
 import './exercises.scss'
 import React from 'react';
 import * as exercise from '~/platform/exercise'
-import * as router from '~/platform/router';
-import { Navbar } from '~/gui/shared/navbar';
+import * as express from 'express-browser';
+import { Navbar } from '~/gui/shared/components/navbar';
 import { useExercises } from './state';
 import { Exercises } from './components';
 
 
-export const ExercisesView = (nav: router.Navigator, exercises: exercise.Getter) => () => {
+export const ExercisesView = (nav: express.Navigator, exercises: exercise.Getter) => () => {
     const list = useExercises(exercises)
     console.log(list)
     return <div className="view-exercises">
@@ -15,7 +15,7 @@ export const ExercisesView = (nav: router.Navigator, exercises: exercise.Getter)
             <div>Exercises</div>
             <div onClick={() => nav.navigate('/exercises/add')}>Add New</div>
         </Navbar>
-        <Exercises 
+        <Exercises
             list={list} />
     </div>
 }

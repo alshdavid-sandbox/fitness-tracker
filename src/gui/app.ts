@@ -1,25 +1,25 @@
 import './app.scss'
 import * as database from '~/platform/database';
-import * as router from '~/platform/router';
+import * as express from 'express-browser';
+import * as exercise from '~/platform/exercise'
+import * as views from '~/gui/views'
 
 void async function main(){
     const db = await database.connect()
-    const app = router.create()
+    const exercises = exercise.createStore(db)
+    const app = express.create()
 
-    app.use(router.React('#router-outlet'))
+    app.use(express.React('#router-outlet'))
 
     app.path('/', (req, res) => res.redirect('/exercises'))
 
-    const [ 
-        { exercisesRoutes }, 
-        { bodyweightRoutes } 
-    ] = await Promise.all([ 
-        import('~/gui/exercises'),
-        import('~/gui/bodyweights')
-    ])
+    app.path('/exercises', (req, res) =>
+        res.mount(views.ExercisesView(app, exercises))
+    )
 
-    exercisesRoutes(app, db)
-    bodyweightRoutes(app, db)
+    app.path('/exercises/add', (req, res) =>
+        res.mount(views.ExercisesAddView(app, exercises))
+    )
 
     app.load()
 }()
