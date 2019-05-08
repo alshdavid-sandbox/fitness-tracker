@@ -1167,9 +1167,10 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
-express-browser@/Users/davidalsh/Development/alshdavid/expressive/express-browser-1.0.4.tgz:
-  version "1.0.4"
-  resolved "/Users/davidalsh/Development/alshdavid/expressive/express-browser-1.0.4.tgz#668bb4c5bb1a1e2d391192c246987b327386b9b0"
+express-browser@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/express-browser/-/express-browser-1.0.6.tgz#f415226f4b3d74914a19d082190c2b0164243988"
+  integrity sha512-zE5yrwQdqOaA+Y16QbE5vUlPmbMMFLMZvxhHluIl8j0LLI2Um8NJYOR5nkgK3Vb6wBkJ5p2efDXHgVYOMXRIow==
 
 extend-shallow@^2.0.1:
   version "2.0.1"

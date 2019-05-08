@@ -21,7 +21,7 @@
     "axios": "^0.18.0",
     "css-loader": "^2.1.0",
     "dexie": "^2.0.4",
-    "express-browser": "/Users/davidalsh/Development/alshdavid/expressive/express-browser-1.0.4.tgz",
+    "express-browser": "^1.0.6",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "navigo": "^7.1.2",
