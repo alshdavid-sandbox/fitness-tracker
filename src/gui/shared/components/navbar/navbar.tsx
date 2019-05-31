@@ -1,10 +1,6 @@
 import './navbar.scss'
-import React, { memo } from "react";
+import { h} from "preact";
 
-interface NavbarProps {
-    children: React.ReactNode
-}
-
-export const Navbar = memo<NavbarProps>(({ children }) => <nav className="shared-component-navbar">
+export const Navbar = ({ children }: any) => <nav className="shared-component-navbar">
     { children }
-</nav>)
+</nav>

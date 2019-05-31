@@ -4,6 +4,7 @@
     "module": "esnext",  
     "moduleResolution": "node",
     "baseUrl": "./",
+    "sourceRoot": "./src",
     "lib": [
       "dom",
       "es2017"
@@ -13,12 +14,17 @@
     "esModuleInterop": true,
     "allowJs": true,
     "jsx": "react",
+    "jsxFactory": "h",
     "experimentalDecorators": true,
     "paths": {
       "~/*": ["src/*"],
     }
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "webpack.config.js"
   ]
 }

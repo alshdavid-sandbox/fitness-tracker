@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { h } from 'preact';
 import * as exercise from '~/platform/exercise'
 
 const getAveragReps = (sets: exercise.Set[]) => Math.round(sets.reduce((p, c) => p + c.reps, 0) / sets.length)
@@ -9,9 +9,9 @@ interface ExercisesProps {
     list: exercise.Exercise[]
 }
 
-export const Exercises = memo<ExercisesProps>(({ list, children }) => <div>
+export const Exercises = ({ list, children }: any) => <div>
     {
-        list.map(item => (
+        list.map((item: any) => (
             <div
                 key={item.id}
                 className="item">
@@ -35,4 +35,4 @@ export const Exercises = memo<ExercisesProps>(({ list, children }) => <div>
             </div>
         ))
     }
-</div>)
+</div>

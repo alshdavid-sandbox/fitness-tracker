@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 import * as exercise from '~/platform/exercise'
 
 export const Sets: any = ({ sets, add, remove, update }: any) => (
@@ -9,11 +9,11 @@ export const Sets: any = ({ sets, add, remove, update }: any) => (
                     <input 
                         type="number" 
                         placeholder="Reps" 
-                        onChange={(e) => update(i, parseInt(e.target.value))}/>
+                        onChange={(e: any) => update(i, parseInt(e.target.value))}/>
                     <input 
                         type="number" 
                         placeholder="Weight" 
-                        onChange={(e) => update(i, undefined, parseInt(e.target.value))}/>
+                        onChange={(e: any) => update(i, undefined, parseInt(e.target.value))}/>
                     <div 
                         onClick={() => remove(i)}>
                         x

@@ -1,5 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 const mode = process.argv.includes('--prod') ? 'production' : 'development'
 if (mode === 'production') {
@@ -40,4 +41,7 @@ module.exports = {
             new TsconfigPathsPlugin()
         ]
     },
+    plugins: [
+        new CompressionPlugin()
+    ]
 };

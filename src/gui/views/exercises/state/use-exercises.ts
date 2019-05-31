@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from 'preact/hooks';
 import * as exercise from '~/platform/exercise'
 
 export const useExercises = (exercises: exercise.Getter) => {

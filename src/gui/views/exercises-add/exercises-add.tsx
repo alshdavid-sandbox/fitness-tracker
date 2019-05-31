@@ -1,14 +1,15 @@
 import './exercises-add.scss'
-import React, { useState } from 'react';
+import { h } from 'preact';
+import { useState } from 'preact/hooks';
 import moment from 'moment'
 import { useTags, useSets } from './state'
 import * as exercise from '~/platform/exercise'
-import * as express from 'express-browser';
+import { Navigator } from 'crayon';
 import { Navbar } from '~/gui/shared/components';
 import { Date, Movement, Tags, Sets } from './components'
 
 export const ExercisesAddView = (
-    nav: express.Navigator,
+    nav: Navigator,
     exercises: exercise.Adder
 ) => () => {
     const { tags, inputTag, removeTag } = useTags()

@@ -1,13 +1,13 @@
 import './exercises.scss'
-import React from 'react';
+import { h } from 'preact';
+import { Navigator } from 'crayon';
 import * as exercise from '~/platform/exercise'
-import * as express from 'express-browser';
 import { Navbar } from '~/gui/shared/components/navbar';
 import { useExercises } from './state';
 import { Exercises } from './components';
 
 
-export const ExercisesView = (nav: express.Navigator, exercises: exercise.Getter) => () => {
+export const ExercisesView = (nav: Navigator, exercises: exercise.Getter) => () => {
     const list = useExercises(exercises)
     console.log(list)
     return <div className="view-exercises">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'preact/hooks';
 import * as exercise from '~/platform/exercise'
 
 export const useSets = () => {
