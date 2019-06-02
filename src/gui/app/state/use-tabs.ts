@@ -3,15 +3,12 @@ import transition from 'crayon-transition'
 import { useRouter, routerFunc } from '~/platform/crayon/use-router'
 
 const homeTabs: routerFunc = (tabs, selector) => {
-    tabs.use(transition.loader(selector))
-    tabs.use(animate.defaults({ duration: 300 }))
+    console.log('render2')
+    tabs.path('/workouts', (req, res) => res.redirect('/workouts/recent'))
 
-    tabs.path('/workouts', 
-        animate.route([
-            { from: '/**', name: transition.slideRight },
-            { to:   '/**', name: transition.slideLeft }
-        ]),
+    tabs.path('/workouts/**', 
         async (req, res) => {
+            console.log('render3')
             const { Workouts } = await import('~/gui/workouts')
             return res.mount(Workouts())
     })
@@ -22,16 +19,10 @@ const homeTabs: routerFunc = (tabs, selector) => {
     })
 
     tabs.path('/calories', 
-        animate.route([
-            { from: '/**', name: transition.slideLeft },
-            { to:   '/**', name: transition.slideRight }
-        ]),
         async (req, res) => {
             const { Calories } = await import('~/gui/calories')
             return res.mount(Calories())
     })
-
-    tabs.path('/**', (req, res) => res.redirect('/workouts'))
 }
 
 export const useTabs = () => {
