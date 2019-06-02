@@ -1,0 +1,26 @@
+.component-toolbar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 20px;
+    height: inherit;
+
+    * {
+        color: #999;
+    }
+
+    &.active * {
+        color: black;
+    }
+
+    i {
+        font-size: 20px;
+        display: inline-block;
+        margin-bottom: 4px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+}

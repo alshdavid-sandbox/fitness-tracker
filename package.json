@@ -7,7 +7,7 @@
     "watch": "webpack --watch",
     "build": "webpack",
     "build:prod": "webpack --prod",
-    "serve": "npx http-server public -g",
+    "serve": "npx http-server -p 80 public -g",
     "clean": "rm -rf public/app",
     "start": "npm run clean && npm run build && npx http-server public"
   },
