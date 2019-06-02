@@ -1,0 +1,130 @@
+.is-animating {
+    .exercise-list {
+        top: 46px !important;
+    }
+}
+
+.component-workouts {
+    .exercise-list {
+        position: absolute;
+        top: 124px;
+        left: 0;
+        right: 0;
+        bottom: 56px;
+        overflow: scroll;
+    }
+}
+
+.component-workouts-navbar {
+    background-color: white;
+    position: relative;
+    z-index: 99;
+    height: 46px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.15);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    div {
+        color: #999;
+        height: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+
+        &.active {
+            color: #000;
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 20%;
+                height: 2px;
+                width: 60%;
+                background-color: black;
+            }
+        }
+    }
+}
+
+.component-date-item {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 98;
+    background-color: white;
+    line-height: 42px;
+    text-align: center;
+    color: #F44336;
+    border-bottom: 1px solid #E0E0E0;
+    font-size: 14px;
+    font-weight: 400;
+    
+    strong {
+        display: inline-block;
+        margin-right: 4px;
+        font-weight: 600;
+    }
+}
+
+.component-workout-item {
+    padding: 8px;
+    display: flex;
+    border-bottom: 1px solid #E0E0E0;
+    position: relative;
+ 
+    &:after {
+        content: '\f054';
+        font-family: "Font Awesome 5 Pro";
+        font-weight: 900;
+        display: block;
+        position: absolute;
+        right: 8px;
+        top: calc(50% - 8px);
+        color: #D1D1D1;
+    }
+
+    .score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 64px;
+        width: 64px;
+        color: white;
+        background-color: #607D8B;
+
+        i {
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+    }
+
+    .details {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-left: 12px;
+
+        .subtitle {
+            font-size: 14px;
+            color: #999;
+            font-style: italic;
+            padding-left: 8px;
+        }
+
+        .title {
+            font-size: 16px;
+            color: black;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        
+    }    
+}

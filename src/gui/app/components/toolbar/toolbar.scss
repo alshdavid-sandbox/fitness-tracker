@@ -1,0 +1,17 @@
+.component-toolbar {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background-color: white;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.component-toolbar-spacer {
+    height: 56px;
+}

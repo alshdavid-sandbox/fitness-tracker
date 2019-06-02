@@ -1,4 +1,4 @@
-import './app.scss'
+import './main.scss'
 import crayon from 'crayon';
 import preact from 'crayon-preact';
 
@@ -11,9 +11,11 @@ void async function main(){
     app.path('/', (req, res) => res.redirect('/workouts'))
 
     app.path('/:section', async (req, res) => {
-        const { Root } = await import('./root')
-        return res.mount(Root(req, app))
+        const { App } = await import('~/gui/app')
+        return res.mount(App(req, app))
     })
 
     app.load()
+
+    ;(window as any).app = app
 }()

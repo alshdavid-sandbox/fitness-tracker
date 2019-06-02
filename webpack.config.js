@@ -8,7 +8,7 @@ if (mode === 'production') {
 }
 
 module.exports = {
-    entry: path.join(__dirname, '/src/gui/app.ts'),
+    entry: path.join(__dirname, '/src/gui/main.ts'),
     mode,
     watchOptions: {
         aggregateTimeout: 300,
