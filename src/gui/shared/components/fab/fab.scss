@@ -1,0 +1,15 @@
+.component-fab {
+    height: 64px;
+    width: 64px;
+    display: flex;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+    background-color: #448AFF;
+    position: fixed;
+    bottom: 110px;
+    right: 24px;
+    font-size: 20px;
+}

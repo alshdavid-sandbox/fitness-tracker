@@ -13,7 +13,7 @@ export const useSection = (req: Request, app: Router) => {
         if (data.type !== RouterEventType.ProgressEnd) {
             return
         }
-        const s: string = (req.params as any).section
+        const s: string = req.pathname.split('/')[1]
         const navText = headers[s]
         setSection(navText)
     }, [])
@@ -23,5 +23,5 @@ export const useSection = (req: Request, app: Router) => {
         return () => sub.unsubscribe()
     }, [req, app, cb])
 
-    return section
+    return { section }
 }
