@@ -2,8 +2,9 @@ import animate from 'crayon-animate'
 import transition from 'crayon-transition'
 import { useRouter, routerFunc } from '~/platform/crayon/use-router'
 import { NavbarAction, FabAction } from '~/gui/shared/components';
+import { Workout } from '~/platform/workout';
 
-const homeTabs = (navbar: NavbarAction, fab: FabAction): routerFunc => 
+const homeTabs = (navbar: NavbarAction, fab: FabAction, workout: Workout): routerFunc => 
     (tabs, selector) => {
     tabs.use(transition.loader(selector))
     tabs.use(animate.defaults({ duration: 300 }))
@@ -16,7 +17,7 @@ const homeTabs = (navbar: NavbarAction, fab: FabAction): routerFunc =>
 
     tabs.path('/workouts/**', async (req, res) => {
         const { Workouts } = await import('~/gui/workouts')
-        return res.mount(Workouts(tabs, navbar, fab))
+        return res.mount(Workouts(tabs, navbar, fab, workout))
     })
 
     tabs.path('/weights', async (req, res) => {
@@ -30,7 +31,7 @@ const homeTabs = (navbar: NavbarAction, fab: FabAction): routerFunc =>
     })
 }
 
-export const useTabs = (navbar: NavbarAction, fab: FabAction) => {
-    const [ tabs, setTabs ] = useRouter('home-tabs', homeTabs(navbar, fab))
+export const useTabs = (navbar: NavbarAction, fab: FabAction, workout: Workout) => {
+    const [ tabs, setTabs ] = useRouter('home-tabs', homeTabs(navbar, fab, workout))
     return { tabs, setTabs }
 }

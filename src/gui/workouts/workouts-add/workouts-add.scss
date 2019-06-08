@@ -11,29 +11,3 @@
     }
 }
 
-.component-workouts-add-block {
-    height: 72px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: solid #e0e0e0 1px;
-    font-size: 18px;
-
-    &.is-title {
-        font-size: 25px;
-        color: #666;
-    }
-
-    strong {
-        display: inline-block;
-        margin-right: 4px;
-    }
-
-    .text {
-        color: black;
-    }
-
-    .placeholder {
-        color: #999;
-    }
-}

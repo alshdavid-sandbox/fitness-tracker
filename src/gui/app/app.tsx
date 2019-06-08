@@ -1,15 +1,15 @@
 import { h } from 'preact'
-import { useState } from 'preact/hooks';
 import { Router, Request } from 'crayon';
 import { ToolbarItem, Navbar, Toolbar, useNavbar, useFab, Fab } from '~/gui/shared/components'
 import { useSection, useTabs } from './state';
+import { Workout } from '~/platform/workout';
 import './app.scss'
 
-export const App = (req: Request, app: Router) => () => {
+export const App = (req: Request, app: Router, workout: Workout) => () => {
     const navbar = useNavbar()
     const fab = useFab()
     const { section } = useSection(req, app)
-    const { setTabs } = useTabs(navbar, fab)
+    const { setTabs } = useTabs(navbar, fab, workout)
 
     return <section className="component-root">
         <Navbar>

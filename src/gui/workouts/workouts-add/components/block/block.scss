@@ -1,0 +1,39 @@
+.component-workouts-add-block {
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid #e0e0e0 1px;
+    font-size: 18px;
+    position: relative;
+
+    &.has-action:before {
+        content: '\f054';
+        font-family: "Font Awesome 5 Pro";
+        font-weight: 500;
+        font-size: 11px;
+        display: block;
+        position: absolute;
+        right: 8px;
+        top: calc(50% - 5.5px);
+        color: #999;
+    }
+
+    &.is-title {
+        font-size: 25px;
+        color: #666;
+    }
+
+    strong {
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .text {
+        color: black;
+    }
+
+    .placeholder {
+        color: #999;
+    }
+}
