@@ -1,66 +1,45 @@
 import './main.scss'
-import crayon, { group } from 'crayon';
+import crayon from 'crayon';
 import preact from 'crayon-preact';
 import animate from 'crayon-animate'
 import transition from 'crayon-transition'
 import workout from '~/platform/workout'
+import { withContext } from '~/platform/with-context'
+import * as Pages from '~/gui/pages'
+import { App } from '~/gui/pages/root';
+import { animations } from '~/gui/animations';
+import { AppContext, context } from '~/gui/context';
 
-void async function main(){
-    const app = crayon.create()
-    app.use(preact.router())   
-    const currentWorkout = workout.create() 
+const app = crayon.create()
+context.router = app
 
-    app.path('/', (req, res) => res.redirect('/workouts/recent'))
+app.use(preact.router())   
+app.use(transition.loader())
+app.use(animate.defaults({ duration: 300 }))
+app.use(animate.routes(animations))
+app.use(withContext(AppContext, context))
 
-    app.path('/**', async (req, res) => {
-        const { App } = await import('~/gui/app')
-        return res.mount(App(req, app, currentWorkout))
-    })
+app.path('/', (req, res) => res.redirect('/workouts/recent'))
 
-    const workoutsAddGroup = group('/workouts/add', async group => {
-        group.use(transition.loader())
-        group.use(animate.defaults({ duration: 300 }))
-        group.use(animate.routes([
-            { to:   '/workouts/add',          from: '/**', name: transition.pushUp   },
-            { from: '/workouts/add',          to:   '/**', name: transition.popDown  },
-            { to:   '/workouts/add/movement', from: '/**', name: transition.pushLeft },
-            { from: '/workouts/add/movement', to:   '/**', name: transition.popRight },
-            { to:   '/workouts/add/tags',     from: '/**', name: transition.pushLeft },
-            { from: '/workouts/add/tags',     to:   '/**', name: transition.popRight },
-            { to:   '/workouts/add/notes',    from: '/**', name: transition.pushLeft },
-            { from: '/workouts/add/notes',    to:   '/**', name: transition.popRight },
-            { to:   '/workouts/add/sets',     from: '/**', name: transition.pushLeft },
-            { from: '/workouts/add/sets',     to:   '/**', name: transition.popRight }
-        ]))
+// This contains a nested router for animation purposes
+app.path('/**', (req, res) => 
+  res.mount(App))
 
-        group.path('/', async (req, res) => {
-            const { WorkoutsAdd } = await import('~/gui/workouts/workouts-add/workouts-add')     
-            return res.mount(WorkoutsAdd(app, currentWorkout))
-        })
+app.path('/workouts/add', (req, res) =>
+  res.mount(Pages.WorkoutsAdd))
 
-        group.path('/movement', async (req, res) => {
-            const { WorkoutsAddMovement } = await import('~/gui/workouts/workouts-add-movement/workouts-add-movement')     
-            return res.mount(WorkoutsAddMovement(app, currentWorkout))
-        })
+app.path('/workouts/add/movement', (req, res) => 
+  res.mount(Pages.WorkoutsAddMovement))
 
-        group.path('/tags', async (req, res) => {
-            const { WorkoutsAddTags } = await import('~/gui/workouts/workouts-add-tags/workouts-add-tags')     
-            return res.mount(WorkoutsAddTags(app))
-        })
+app.path('/workouts/add/tags', (req, res) => 
+  res.mount(Pages.WorkoutsAddTags))
 
-        group.path('/notes', async (req, res) => {
-            const { WorkoutsAddNotes } = await import('~/gui/workouts/workouts-add-notes/workouts-add-notes')     
-            return res.mount(WorkoutsAddNotes(app))
-        })
+app.path('/workouts/add/notes', (req, res) => 
+  res.mount(Pages.WorkoutsAddNotes))
 
-        group.path('/sets', async (req, res) => {
-            const { WorkoutsAddSets } = await import('~/gui/workouts/workouts-add-sets/workouts-add-sets')     
-            return res.mount(WorkoutsAddSets(app))
-        })
-    })
+app.path('/workouts/add/sets', (req, res) => 
+  res.mount(Pages.WorkoutsAddSets))
 
-    app.use(workoutsAddGroup)
-    app.load()
+app.load()
 
-    ;(window as any).app = app
-}()
+;(window as any).app = app

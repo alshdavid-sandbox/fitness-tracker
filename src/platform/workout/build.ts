@@ -9,14 +9,6 @@ export class Workout {
     tags: string[] = []
     notes = ''
     sets: Set[] = []
-
-    clear() {
-        this.date = undefined
-        this.movement = undefined
-        this.tags = []
-        this.notes = ''
-        this.sets = []
-    }
 }
 
 export const create = () => {

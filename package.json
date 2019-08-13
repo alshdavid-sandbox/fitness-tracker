@@ -4,20 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch",
     "build": "webpack",
+    "build:watch": "webpack --watch",
     "build:prod": "webpack --prod",
-    "serve": "npx http-server -p 80 public -g",
+    "build:stats": "webpack --prod --stats",
+    "serve": "npx http-server -s -p 80 public -g",
     "clean": "rm -rf public/app",
-    "start": "npm run clean && npm run build && npx http-server public"
+    "start": "run-p build:watch serve"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@elastic/apm-rum": "^4.0.2",
-    "@types/lodash": "^4.14.121",
-    "axios": "^0.18.0",
     "crayon": "^2.3.0",
     "crayon-animate": "^1.0.1",
     "crayon-preact": "^1.1.2",
@@ -26,19 +24,21 @@
     "dexie": "^2.0.4",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "preact": "^10.0.0-beta.1",
+    "preact": "^10.0.0-rc.1",
     "rxjs": "^6.4.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.121",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.1.0",
     "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "ts-loader": "^5.3.3",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.3.3",
     "webpack": "^4.29.5",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.2.3"
   }
 }

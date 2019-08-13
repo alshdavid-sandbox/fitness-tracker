@@ -1,7 +1,8 @@
 const path = require('path');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const stats = process.argv.includes('--stats') ? [new BundleAnalyzerPlugin()] : []
 const mode = process.argv.includes('--prod') ? 'production' : 'development'
 if (mode === 'production') {
     process.env.NODE_ENV="'production'"
@@ -37,11 +38,12 @@ module.exports = {
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
-        plugins: [
-            new TsconfigPathsPlugin()
-        ]
+        alias: {
+          '~': path.resolve(__dirname, 'src')
+        }
     },
     plugins: [
-        new CompressionPlugin()
+        new CompressionPlugin(),
+        ...stats
     ]
 };
