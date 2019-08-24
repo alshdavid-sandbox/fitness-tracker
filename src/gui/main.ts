@@ -3,10 +3,8 @@ import crayon from 'crayon';
 import preact from 'crayon-preact';
 import animate from 'crayon-animate'
 import transition from 'crayon-transition'
-import workout from '~/platform/workout'
 import { withContext } from '~/platform/with-context'
 import * as Pages from '~/gui/pages'
-import { App } from '~/gui/pages/root';
 import { animations } from '~/gui/animations';
 import { AppContext, context } from '~/gui/context';
 
@@ -23,7 +21,7 @@ app.path('/', (req, res) => res.redirect('/workouts/recent'))
 
 // This contains a nested router for animation purposes
 app.path('/**', (req, res) => 
-  res.mount(App))
+  res.mount(Pages.Root))
 
 app.path('/workouts/add', (req, res) =>
   res.mount(Pages.WorkoutsAdd))

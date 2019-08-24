@@ -1,25 +1,54 @@
 import { h } from "preact";
+import { Icon } from '../icon'
 import './navbar.scss'
-import { useState } from "preact/hooks";
+import { BehaviorSubject } from "rxjs";
 
-export type NavbarAction = ReturnType<typeof useNavbar>
+export interface NavbarState extends NavbarProps{
 
-export const useNavbar = () => {
-    const [ action, set ] = useState<h.JSX.Element | undefined | null>(undefined)
-    const clear = () => set(undefined)
-    return {
-        action,
-        set,
-        clear
-    }
+}
+
+export class NavbarController {
+  state: BehaviorSubject<NavbarState>
+  
+  get value() {
+    return this.state.value
+  }
+
+  constructor(
+    props: NavbarState = {}
+  ) {
+    this.state = new BehaviorSubject(props)
+  }
+
+  setState(state: Partial<NavbarState>) {
+    this.state.next({
+      ...this.value,
+      ...state
+    })
+  }
+
+  replaceState(state: Partial<NavbarState>) {
+    this.reset()
+    this.setState(state)
+  }
+
+  reset() {
+    this.state.next({})
+  }
 }
 
 type NavbarProps = {
-    children?: any
+    title?: string
+    icon?: string
+    onClick?: () => any
 }
 
-export const Navbar = ({ children }: NavbarProps) => {
-    return <header className="component-navbar">
-        { children }
-    </header>
-}
+export const Navbar = ({ 
+  title, 
+  icon, 
+  onClick = () => {}
+}: NavbarProps) => 
+  <header className="component-navbar">
+    <div>{title}</div>
+    {icon && <Icon src={icon} onClick={onClick}/>}
+  </header>

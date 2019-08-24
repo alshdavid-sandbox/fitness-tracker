@@ -1,30 +1,64 @@
 import { h } from "preact";
+import { BehaviorSubject } from 'rxjs'
 import './fab.scss'
-import { useState } from "preact/hooks";
+import { Icon } from "../icon/icon";
 
-export type FabAction = ReturnType<typeof useFab>
+interface FabState {
+  show: boolean
+  icon?: string
+  iconStyle?: string
+  onClick?: any
+}
 
-export const useFab = () => {
-    const [ action, set ] = useState<h.JSX.Element | undefined | null>(undefined)
-    const [ onClick, setOnClick ] = useState<any>(() => {})
-    const clear = () => set(undefined)
+export class FabController {
+  state: BehaviorSubject<FabState>
+  
+  get value() {
+    return this.state.value
+  }
 
-    return {
-        action,
-        onClick,
-        setOnClick,
-        set,
-        clear
-    }
+  constructor(
+    props: FabState = { show: false }
+  ) {
+    this.state = new BehaviorSubject(props)
+  }
+
+  show() {
+    this.setState({ show: true })
+  }
+
+  hide() {
+    this.setState({ show: false })
+  }
+
+  setState(state: Partial<FabState>) {
+    this.state.next({
+      ...this.value,
+      ...state
+    })
+  }
+
+  reset() {
+    this.state.next({ show: false })
+  }
 }
 
 type FabProps = {
-    children?: any
     onClick?: any
+    iconStyle?: string
+    icon?: string
 }
 
-export const Fab = ({ children, onClick }: FabProps) => {
-    return <div onClick={onClick} className="component-fab">
-        { children }
+export const Fab = ({ 
+  icon, 
+  iconStyle, 
+  onClick = () => {}, 
+}: FabProps) => {
+    return <div 
+      onClick={onClick} 
+      className="component-fab">
+      { icon && <Icon 
+        src={icon} 
+        weight={iconStyle} /> }
     </div>
 }

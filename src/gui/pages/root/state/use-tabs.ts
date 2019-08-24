@@ -1,24 +1,29 @@
 import animate from 'crayon-animate'
 import transition from 'crayon-transition'
 import { useRouter, routerFunc } from '~/platform/use-router'
-import { NavbarAction, FabAction } from '~/gui/components';
-import * as Pages from '~/gui/pages';
+// import { NavbarAction } from '~/gui/components';
+import * as Tabs from '~/gui/pages/root/tabs';
 import { tabAnimations } from '~/gui/animations';
+import { AppContext, context } from '~/gui/context';
+import { withContext } from '~/platform/with-context';
 
-export const useTabs = (navbar: NavbarAction, fab: FabAction) => {
-  const [tabs, setTabs] = useRouter('home-tabs', (tabs, selector) => {
+export const useTabs = () => {
+  const [ tabs, setTabsElement ] = useRouter((tabs, selector) => {
     tabs.use(transition.loader(selector))
     tabs.use(animate.defaults({ duration: 300 }))
     tabs.use(animate.routes(tabAnimations))
+    tabs.use(withContext(AppContext, context))
 
-    tabs.path('/workouts/**', async (req, res) =>
-      res.mount(Pages.Workouts(tabs, navbar, fab)))
+
+    tabs.path('/workouts/**', async (req, res) => {
+      return res.mount(Tabs.Workouts)
+    })
 
     tabs.path('/weights', async (req, res) =>
-      res.mount(Pages.Weights(navbar, fab)))
+      res.mount(Tabs.Weights))
 
     tabs.path('/calories', async (req, res) =>
-      res.mount(Pages.Calories(navbar, fab)))
+      res.mount(Tabs.Calories))
   })
-  return { tabs, setTabs }
+  return { tabs, setTabsElement }
 }

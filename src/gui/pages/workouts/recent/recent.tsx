@@ -1,4 +1,5 @@
 import { h } from "preact";
+import { useEffect } from "preact/hooks";
 
 const DateItem = ({ weekday, date }: any) => <div className="component-date-item">
     <strong>{ weekday }</strong>{ date }
@@ -27,7 +28,7 @@ const ScrollView = ({ children, bottom, name }: any) => {
     </div>
 }
 
-export const WorkoutsRecent = () => () => {
+export const WorkoutsRecent = () => {
     return <div className="component-workouts-recent">
         <Navbar />
         <ScrollView name="exercise-list">

@@ -1,12 +1,18 @@
 import { createContext } from 'preact'
-import { Router } from 'crayon';
+import { Router, Request } from 'crayon';
 import { useContext } from 'preact/hooks';
+import { NavbarController, FabController } from './components';
 
 interface AppContextContainer {
-  router: Router
+  navbarCtrl: NavbarController,
+  fabCtrl: FabController,
+  router: Router,
 }
 
-export const context: Partial<AppContextContainer> = {}
+export const context: Partial<AppContextContainer> = {
+  navbarCtrl: new NavbarController(),
+  fabCtrl: new FabController(),
+}
 export const AppContext = createContext<AppContextContainer>(null as any)
 
 export const useAppContext = () => useContext(AppContext)
