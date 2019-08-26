@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'preact/hooks'
 import { RouterEvent, RouterEventType } from 'crayon';
-import { useAppContext } from '~/gui/context';
+import { useAppState } from '~/gui/context';
 
 const headers: any = {
   workouts: 'Workouts',
@@ -9,7 +9,7 @@ const headers: any = {
 }
 
 export const useSection = () => {
-  const { router } = useAppContext()
+  const { router } = useAppState()
   const pathname = window.location.pathname
   const [section, setSection] = useState('')
 

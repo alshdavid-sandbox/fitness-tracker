@@ -1,0 +1,36 @@
+.component-workouts-navbar {
+  background-color: white;
+  position: relative;
+  z-index: 99;
+  height: 46px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.15);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  div {
+      color: #999;
+      height: inherit;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+
+      &.active {
+          color: #000;
+          position: relative;
+
+          &:after {
+              content: '';
+              display: block;
+              position: absolute;
+              bottom: 0;
+              left: 20%;
+              height: 2px;
+              width: 60%;
+              background-color: black;
+          }
+      }
+  }
+}
+

@@ -1,22 +1,23 @@
 import { createContext } from 'preact'
-import { Router, Request } from 'crayon';
+import { Router } from 'crayon';
 import { useContext } from 'preact/hooks';
 import { NavbarController, FabController } from './components';
+import Workout from '~/platform/workout'
 
-interface AppContextContainer {
+interface AppState {
   navbarCtrl: NavbarController,
   fabCtrl: FabController,
   router: Router,
+  workouts: Workout.Store,
+  workoutBuilder: Workout.Builder,
 }
 
-export const context: Partial<AppContextContainer> = {
+export const state: Partial<AppState> = {
   navbarCtrl: new NavbarController(),
   fabCtrl: new FabController(),
+  workoutBuilder: new Workout.Builder(),
 }
-export const AppContext = createContext<AppContextContainer>(null as any)
+export const AppContext = createContext<Partial<AppState>>(state)
 
-export const useAppContext = () => useContext(AppContext)
-export const useSelector = <T>(fn: (p: AppContextContainer) => T): T => {
-  const context = useAppContext()
-  return fn(context)
-}
+export const useAppState = (): AppState => useContext(AppContext) as AppState
+

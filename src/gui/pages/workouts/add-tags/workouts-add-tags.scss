@@ -1,5 +1,22 @@
 .component-workouts-add-tags {
-    background-color: white;
-    min-height: 100vh;
-}
+  background-color: white;
+  min-height: 100vh;
 
+  .tag {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  .submit {
+    display: block;
+    position: fixed;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+  }
+}

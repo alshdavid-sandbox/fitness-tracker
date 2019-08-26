@@ -11,12 +11,16 @@ interface IconProps extends SpanProps {
 export const Icon = ({
   weight = 'far', 
   src = '',
+  style = {},
   ...spanProps
 }: IconProps) => {
   return (
     <span
       {...spanProps}
-      style={{ display: 'inline-block' }}
+      style={{ 
+        display: 'inline-block', 
+        ...style as any
+      }}
       className={`${weight} fa-${src}`}
     />
   )

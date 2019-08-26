@@ -24,13 +24,7 @@ export const useDate = () => {
         dateInput.click()
     }
 
-    const getDate = (dateString?: string) => {
-        const date = (() => {
-            if (dateString) {
-                return new Date(Date.parse(dateString))
-            }
-            return new Date()
-        })()
+    const setDate = (date: Date) => {
         const fmtDate = format(date, 'yyyy-MM-dd')
         const year = fmtDate.split('-')[0]
         const month = fmtDate.split('-')[1]
@@ -41,17 +35,10 @@ export const useDate = () => {
         return fmtDate
     }
 
-    useMemo(() => {
-        if (!dateInput) {
-            return
-        }
-        dateInput.value = getDate()
-    }, [dateInput])
-
     return {
         clickInput,
         dateLabel,
-        getDate,
+        setDate,
         setDateInput
     }
 }

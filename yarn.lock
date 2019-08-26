@@ -867,29 +867,24 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-crayon-animate@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/crayon-animate/-/crayon-animate-2.0.1.tgz#507803a3e446677faad06413b82c04aabbdbfad2"
-  integrity sha512-JLMzyDzvCbmq1UIAtF8C34Rm7Ytbhu1nGHu1VTZon4e5giK+ARNBGUF9QXtwTYfeq9FCPdddNRR1+vA9vvsh7Q==
+crayon-animate@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/crayon-animate/-/crayon-animate-2.0.4.tgz#04baf59bd4aad54b6c20f9116249c554063c9089"
+  integrity sha512-2Ec1r7zjKBwVr8OfDjDPKcdiwgeP3XWVKCbAmJQ9xJroMRJV6HW0IUdci4CWswiQFajNg8TJRfjFpSwAdPvQcA==
   dependencies:
     crayon-kit "^1.0.0"
 
-crayon-kit@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/crayon-kit/-/crayon-kit-1.0.0.tgz#a3416df60484ad2f366999e399329b5e180dfcd8"
-  integrity sha512-62fzIF3SBXi+8D5xC/246BNNUJuhtX1KdgB3hMqAgcrgBjX1lIW3WG33LNAKKX9ptjjaHX4jarardfp4A1Ry+A==
-
-crayon-kit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/crayon-kit/-/crayon-kit-1.0.1.tgz#65334eb34a7bc4c7549b1a99dd71ff42c3785bea"
-  integrity sha512-Asx+IOwSVYpTVKT8yeboDYC21yRQz6EaccZnbVVK+/CCQUwRGwxZ56BFDU7k2AOyDplzs5y5EPdjqxpieGAL4g==
+crayon-kit@^1.0.0, crayon-kit@^1.0.2, crayon-kit@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/crayon-kit/-/crayon-kit-1.0.3.tgz#e39a0c7d3fced9001e7bafe8eac4332b17bfe3c8"
+  integrity sha512-6tCor/jUfrtuLk5y9CAb+tVhnA2jOThk4D//pKAWjmed84juss0wT4a5uoN5DnEAHdtTL4u6/2TDFc7kqwSYEw==
   dependencies:
     typescript "^3.5.3"
 
-crayon-preact@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/crayon-preact/-/crayon-preact-2.0.1.tgz#3f76cc9be9c0b9bac201801cb66be0c19bf56b56"
-  integrity sha512-CrG2yh4fp1JXnfisJxBobtXcr5T8QSaLXFsNnYz3+Oa/AVZsT1jrHHWK8nLgefoLQOCluK6Bh7x81ng7BgqYGA==
+crayon-preact@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/crayon-preact/-/crayon-preact-2.0.3.tgz#66cab514de09758f4d75958c46c18969e023e88b"
+  integrity sha512-kSCQFEy9goLAfIz2EiYfrmMM3AZ33LmqhHYti44K9SCp3GpadSdTtPhJu1SwsMk2y/bz5shEhBRYU52Stg7B3g==
   dependencies:
     crayon-kit "^1.0.0"
 
@@ -898,12 +893,12 @@ crayon-transition@^1.0.1:
   resolved "https://registry.yarnpkg.com/crayon-transition/-/crayon-transition-1.0.1.tgz#a8ae0f2f30198de895f1c691f2a9ac0d6991a8a2"
   integrity sha512-wMiUmoy/zu9GzrPMSq7zcTAOFfrLIswxKOBvZSktd5s/WhwXKEkuR0JmgCZQtTuflkuIeDhHH72SFaNXj7G3eg==
 
-crayon@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/crayon/-/crayon-4.1.0.tgz#e4a1726a4c7464f4d07b007d8c5482c0e1fe539c"
-  integrity sha512-V+cJtE1wXh3c3tko3NvCVcDkspwXsUUJudgWQZfOnNPXVR5oOMMQgy1AJOwHBk0/NTIfdRDpvXuCnpaXOFEqJg==
+crayon@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/crayon/-/crayon-4.1.1.tgz#dc9d4e20a23af98483bcf943d9b4595397565458"
+  integrity sha512-OQBwf2Wta4GmvzIT3Z/+3LGumuhNLY/jvWftDoSYSuspHPOfHPwVMzuE0ycXPHXBQTxrYgQkkXI/gZYpnw9ucQ==
   dependencies:
-    crayon-kit "^1.0.0"
+    crayon-kit "^1.0.2"
 
 create-ecdh@^4.0.0:
   version "4.0.3"
@@ -2566,11 +2561,6 @@ mixin-object@^2.0.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
-
-moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"

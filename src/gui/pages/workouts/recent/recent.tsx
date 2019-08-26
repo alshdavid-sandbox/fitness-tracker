@@ -1,72 +1,41 @@
-import { h } from "preact";
-import { useEffect } from "preact/hooks";
-
-const DateItem = ({ weekday, date }: any) => <div className="component-date-item">
-    <strong>{ weekday }</strong>{ date }
-</div>
-
-const WorkoutItem = () => <div className="component-workout-item">
-    <div className="score">
-        <i className="fas fa-star"></i>
-        <p>1,216</p>
-    </div>
-    <div className="details">
-        <p className="title">Flat Barbell Bench Press</p>
-        <p className="subtitle">4 Reps x 4 Sets x 76kg</p>
-    </div>
-</div>
-
-const Navbar = () => <nav className="component-workouts-navbar">
-    <div className="active">Recent</div>
-    <div>Overview</div>
-</nav>
-
-const ScrollView = ({ children, bottom, name }: any) => {
-    return <div
-        className={name || ''}>
-        { children }
-    </div>
-}
+import "./recent.scss"
+import { h, Fragment } from "preact"
+import { useMemo, useState } from "preact/hooks"
+import { useAppState } from "~/gui/context"
+import Workout from "~/platform/workout"
+import { SubNavbar, WorkoutItem, DateItem } from "./components"
 
 export const WorkoutsRecent = () => {
-    return <div className="component-workouts-recent">
-        <Navbar />
-        <ScrollView name="exercise-list">
-            <DateItem weekday="Tuesday" date="23 April 2019" />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <DateItem weekday="Monday" date="22 April 2019" />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <DateItem weekday="Sunday" date="21 April 2019" />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-            <WorkoutItem />
-        </ScrollView>
+  const { workouts } = useAppState()
+  const [workoutList, setWorkoutList] = useState<
+    Record<string, Workout.Exercise[]>
+  >({})
+
+  useMemo(async () => {
+    const list = await workouts.getAll()
+    const oList = Workout.organiseByDate(list)
+    setWorkoutList(oList)
+  }, [workouts])
+
+  return (
+    <div className="component-workouts-recent">
+      <SubNavbar />
+      <div className="exercise-list">
+        {Object.keys(workoutList).map(key => {
+          return (
+            <Fragment>
+              <DateItem dateString={key} />
+              {workoutList[key].map(workout => (
+                <WorkoutItem
+                  title={workout.movement}
+                  subtitle={workout.prettySetsString()}
+                  liftdex={workout.liftdex()}
+                />
+              ))}
+            </Fragment>
+          )
+        })}
+      </div>
     </div>
+  )
 }

@@ -1,27 +1,23 @@
-import { h } from "preact";
-import './workouts-add-movement.scss'
-import { Router } from "crayon";
-import { Workout } from "~/platform/workout";
-import { useAppContext } from "~/gui/context";
-
+import { h } from "preact"
+import "./workouts-add-movement.scss"
+import { useAppState } from "~/gui/context"
+import { SearchPanel } from "~/gui/components"
 
 export const WorkoutsAddMovement = () => {
-    const { router } = useAppContext()
-    const selectMovement = (selected: string) => {
-        // workout.movement = selected
-        router.back()
-    }
+  const { router, workoutBuilder } = useAppState()
 
-    return <div className="component-workouts-add-movement">
-        <div className="search-panel">
-            <input
-                type="text" 
-                placeholder="Search Movements" />
-        </div>
-        <div 
-            className="item"
-            onClick={() => selectMovement('Bench Press')}>
-            Bench Press
-        </div>
+  const selectMovement = (selected: string) => {
+    workoutBuilder.setMovement(selected)
+    router.back()
+  }
+
+  return (
+    <div className="component-workouts-add-movement">
+      <SearchPanel 
+        placeholder="Search Movements"/>
+      <div className="item" onClick={() => selectMovement("Bench Press")}>
+        Bench Press
+      </div>
     </div>
+  )
 }

@@ -1,4 +1,4 @@
-import { useRouter } from '~/platform/use-router'
+import { useRouter } from '~/kit/use-router'
 import * as Pages from '~/gui/pages'
 
 export const useWorkoutRouter = () => {

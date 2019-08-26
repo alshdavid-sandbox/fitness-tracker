@@ -1,12 +1,12 @@
 import { h } from "preact"
 import { useMemo, useEffect } from "preact/hooks"
-import { useAppContext } from "~/gui/context";
+import { useAppState } from "~/gui/context";
 
 export const Calories = () => {
-  const { router, navbarCtrl } = useAppContext()
+  const { router, navbarCtrl } = useAppState()
 
   useEffect(() => {
-    navbarCtrl.replaceState({
+    navbarCtrl.setState({
       title: "Calories"
     })
   }, [navbarCtrl])
