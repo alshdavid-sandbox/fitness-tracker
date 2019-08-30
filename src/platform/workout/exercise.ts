@@ -14,18 +14,18 @@ export class Exercise {
     public tags: string[] = [],
     public notes: string = '',
   ) { }
+}
 
-  prettySetsString(): string {
-    if (this.sets.length === 0) {
-      return ''
-    }
-    const numberOfSets = this.sets.length
-    const averageReps = Math.floor((this.sets.reduce((p, c) => p + c.reps, 0)) / numberOfSets)
-    const averageWeight = Math.floor((this.sets.reduce((p, c) => p + c.weight, 0)) / numberOfSets)
-    return `${numberOfSets} Sets x ${averageReps} Reps x ${averageWeight}kg`
+export const getPrettySummary = (exercise: Exercise): string => {
+  if (exercise.sets.length === 0) {
+    return ''
   }
+  const numberOfSets = exercise.sets.length
+  const averageReps = Math.floor((exercise.sets.reduce((p, c) => p + c.reps, 0)) / numberOfSets)
+  const averageWeight = Math.floor((exercise.sets.reduce((p, c) => p + c.weight, 0)) / numberOfSets)
+  return `${numberOfSets} Sets x ${averageReps} Reps x ${averageWeight}kg`
+}
 
-  liftdex(): number {
-    return Math.floor(this.sets.reduce((p, c) => p + c.reps + c.weight, 0))
-  }
+export const calculateLiftex = (exercise: Exercise): number => {
+  return Math.floor(exercise.sets.reduce((p, c) => p + c.reps * c.weight, 0))
 }

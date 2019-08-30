@@ -1,8 +1,8 @@
 import { Exercise, Set } from './exercise'
-import MicroStore from '~/kit/micro-store'
+import { ToyStore } from '~/kit'
 import { startOfDay } from 'date-fns';
 
-export class Builder extends MicroStore.Base<Exercise> {
+export class Builder extends ToyStore.Base<Exercise> {
   constructor(
     initialValue = new Exercise()
   ) {
@@ -17,7 +17,11 @@ export class Builder extends MicroStore.Base<Exercise> {
     this.setState({ movement })
   }
 
-  addSet(set: Set) {
+  setNotes(notes: string) {
+    this.setState({ notes })
+  }
+
+  addSet(set: Set = new Set()) {
     this.setState({
       sets: [...this.value.sets, set]
     })
@@ -50,9 +54,9 @@ export class Builder extends MicroStore.Base<Exercise> {
     this.setState({ tags })
   }
 
-  reset() {
-    this.setState(new Exercise())
-  }
+  // reset() {
+  //   this.setState(new Exercise())
+  // }
 }
 
 export const removeIncompleteSets = (sets: Set[]) => {

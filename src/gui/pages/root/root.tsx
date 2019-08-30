@@ -4,19 +4,16 @@ import {
   Navbar,
   Toolbar,
   Fab,
-  NavbarController
 } from "~/gui/components"
-import { useSection, useTabs, useFab } from "./state"
+import { useTabs } from "./state"
 import "./root.scss"
 import { useAppState } from "~/gui/context";
-import { useState, useMemo, useEffect } from "preact/hooks";
 import { useSubscribe } from '~/kit/use-subscribe'
-import { Request } from 'crayon'
 
 export const Root = () => {
   const { router, navbarCtrl, fabCtrl } = useAppState()
-  const navbar = useSubscribe(navbarCtrl.state)
-  const fab = useSubscribe(fabCtrl.state)
+  const navbar = useSubscribe(navbarCtrl)
+  const fab = useSubscribe(fabCtrl)
   const { setTabsElement } = useTabs()
   
   const navigate = (route: string) => {

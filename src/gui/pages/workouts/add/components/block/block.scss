@@ -24,6 +24,15 @@
         color: #666;
     }
 
+    .tiny {
+      position: absolute;
+      top: 2px;
+      left: 8px;
+      font-size: 16px;
+      opacity: 0.3;
+      font-style: italic;
+    }
+
     strong {
         display: inline-block;
         margin-right: 4px;

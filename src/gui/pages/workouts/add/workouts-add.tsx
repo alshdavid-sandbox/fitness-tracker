@@ -5,7 +5,7 @@ import { Block } from "./components"
 import { useDate } from "./state"
 import { useAppState } from "~/gui/context"
 import { useSubscribe } from "~/kit/use-subscribe"
-import { useMemo, useEffect } from "preact/hooks"
+import { useMemo } from "preact/hooks"
 import { Sleep } from "crayon-kit"
 import Workout from "~/platform/workout"
 
@@ -19,12 +19,11 @@ export const WorkoutsAdd = () => {
   }
 
   const cancel = () => {
-    onHide(() => workoutBuilder.reset())
+    onHide(() => { workoutBuilder.reset(); console.log(workoutBuilder.value)})
     router.back()
   }
 
   const save = async () => {
-    console.log(exercise)
     await workouts.add(exercise)
     onHide(() => workoutBuilder.reset())
     router.back()
@@ -40,8 +39,14 @@ export const WorkoutsAdd = () => {
 
   return (
     <div className="component-workouts-add">
-      <Block onClick={cancel} isTitle={true} text="Cancel" />
-      <Block onClick={clickInput} placeholder="Enter Date">
+      <Block 
+        onClick={cancel} 
+        isTitle={true} 
+        text="Cancel" />
+      <Block 
+        label="Date"
+        onClick={clickInput} 
+        placeholder="Enter Date">
         {dateLabel}
       </Block>
       <input
@@ -54,12 +59,14 @@ export const WorkoutsAdd = () => {
         ref={setDateInput}
       />
       <Block
+        label="Movement"
         onClick={() => router.navigate("/workouts/add/movement")}
         placeholder="Select Movement"
         text={exercise.movement}
         hasAction={true}
       />
       <Block
+        label="Tags"
         onClick={() => router.navigate("/workouts/add/tags")}
         placeholder="Add Tags"
         hasAction={true}>
@@ -68,24 +75,39 @@ export const WorkoutsAdd = () => {
           style={{ 
             textAlign: 'center',
             width: '100vw',
-            padding: '0 40px' 
+            padding: '0 40px',
+            textTransform: 'capitalize',
           }}>
           {exercise.tags.join(', ')}
         </div> : undefined }
       </Block>
       <Block
+        label="Notes"
         onClick={() => router.navigate("/workouts/add/notes")}
         placeholder="Add Notes"
-        text={exercise.notes}
-        hasAction={true}
-      />
+        hasAction={true}>
+        { exercise.notes.length ? <div 
+          className="truncate-text"
+          style={{ 
+            textAlign: 'center',
+            width: '100vw',
+            padding: '0 40px',
+            textTransform: 'capitalize',
+          }}>
+          {exercise.notes}
+        </div> : undefined }
+      </Block>
       <Block
+        label="Set"
         onClick={() => router.navigate("/workouts/add/sets")}
         placeholder="Add Sets"
-        text={Workout.setsAsString(exercise.sets)}
+        text={Workout.getPrettySummary(exercise)}
         hasAction={true}
       />
-      <Button onClick={save} className="submit" theme="primary">
+      <Button 
+        onClick={save} 
+        className="submit" 
+        theme="primary">
         Add Workout
       </Button>
     </div>

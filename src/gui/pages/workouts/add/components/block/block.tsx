@@ -5,6 +5,7 @@ const makeClassName = (className: string, shouldAdd: boolean) =>
   shouldAdd ? className : ""
 
 export const Block = ({
+  label,
   placeholder,
   children,
   text,
@@ -24,6 +25,7 @@ export const Block = ({
         ${makeClassName("has-action", hasAction)}
         ${makeClassName("is-title", isTitle)}
       `}>
+      {(children || text) && label && <div className="tiny">{label}</div>}
       {!children && !text && placeholder && (
         <div className="placeholder">{placeholder}</div>
       )}

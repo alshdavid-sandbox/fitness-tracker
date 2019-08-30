@@ -15,7 +15,7 @@ void async function main() {
   const workouts = new Workout.Store(db)
   const app = crayon.create()
 
-  workouts.getBetweenDates().then(console.log)
+  // workouts.getBetweenDates().then(console.log)
   
   app.use(preact.router())   
   app.use(transition.loader())

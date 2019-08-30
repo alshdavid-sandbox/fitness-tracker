@@ -1,5 +1,6 @@
 import { h } from "preact";
 import { BehaviorSubject } from 'rxjs'
+import { ToyStore } from "~/kit";
 import './fab.scss'
 import { Icon } from "../icon/icon";
 
@@ -10,36 +11,19 @@ interface FabState {
   onClick?: any
 }
 
-export class FabController {
-  state: BehaviorSubject<FabState>
-  
-  get value() {
-    return this.state.value
-  }
-
+export class FabController extends ToyStore.Base<FabState> {
   constructor(
-    props: FabState = { show: false }
+    initialValue: FabState = { show: false }
   ) {
-    this.state = new BehaviorSubject(props)
+    super(initialValue)
   }
-
+  
   show() {
     this.setState({ show: true })
   }
 
   hide() {
     this.setState({ show: false })
-  }
-
-  setState(state: Partial<FabState>) {
-    this.state.next({
-      ...this.value,
-      ...state
-    })
-  }
-
-  reset() {
-    this.state.next({ show: false })
   }
 }
 

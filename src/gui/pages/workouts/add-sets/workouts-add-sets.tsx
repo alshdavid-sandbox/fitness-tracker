@@ -9,10 +9,9 @@ export const WorkoutsAddSets = () => {
   const { router, workoutBuilder } = useAppState()
   const exercise = useSubscribe(workoutBuilder)
 
-  const resume = () => {
-    workoutBuilder.setState({
-      sets: Exercise.removeIncompleteSets(exercise.sets),
-    })
+  const resume = async () => {
+    const sets = Exercise.removeIncompleteSets(exercise.sets)
+    workoutBuilder.setState({ sets })
     router.back()
   }
 
@@ -28,7 +27,7 @@ export const WorkoutsAddSets = () => {
           <div className='reps'>
             <input
               onChange={(e: any) =>
-                workoutBuilder.updateSet(i, 'reps',parseFloat(e.target.value))
+                workoutBuilder.updateSet(i, 'reps', parseFloat(e.target.value))
               }
               placeholder='Enter Sets'
               value={set.reps ? set.reps : undefined}
@@ -51,7 +50,7 @@ export const WorkoutsAddSets = () => {
         </div>
       ))}
       <Button
-        onClick={() => workoutBuilder.addSet(new Exercise.Set())}
+        onClick={() => workoutBuilder.addSet()}
         className='add'
         theme='secondary'>
         Add Set

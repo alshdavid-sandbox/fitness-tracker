@@ -1,39 +1,19 @@
-import { h } from "preact";
-import { Icon } from '../icon'
 import './navbar.scss'
-import { BehaviorSubject } from "rxjs";
+import { h } from "preact";
+import { ToyStore } from "~/kit";
+import { Icon } from '../icon'
 
-export interface NavbarState extends NavbarProps{
-
+export interface NavbarState {
+  title?: string
+  icon?: string
+  onClick?: () => any
 }
 
-export class NavbarController {
-  state: BehaviorSubject<NavbarState>
-  
-  get value() {
-    return this.state.value
-  }
-
+export class NavbarController extends ToyStore.Base<NavbarState> {
   constructor(
-    props: NavbarState = {}
+    initialValue: NavbarState = {}
   ) {
-    this.state = new BehaviorSubject(props)
-  }
-
-  setState(state: Partial<NavbarState>) {
-    this.state.next({
-      ...this.value,
-      ...state
-    })
-  }
-
-  replaceState(state: Partial<NavbarState>) {
-    this.reset()
-    this.setState(state)
-  }
-
-  reset() {
-    this.state.next({})
+    super(initialValue)
   }
 }
 
