@@ -1,0 +1,16 @@
+.component-search-suggestions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  >div {
+    background-color: white; 
+    height: 46px;
+    border: 1px solid #999;
+    border-top: none;
+    margin: 0 20px;
+    padding: 12px 8px;
+    text-transform: capitalize;
+  }
+}

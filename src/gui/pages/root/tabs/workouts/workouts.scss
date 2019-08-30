@@ -1,10 +1,14 @@
 .tab-root.is-animating {
-    .exercise-list {
-      position: absolute;
-      top: 124px;
-      left: 0;
-      right: 0;
-      bottom: 56px;
-      overflow: scroll;
+    .component-workouts {
+      top: 0px !important;
     }
+}
+
+.component-workouts {
+  position: absolute;
+  top: 78px;
+  left: 0;
+  right: 0;
+  bottom: 56px;
+  overflow: scroll;
 }

@@ -54,9 +54,15 @@ export class Builder extends ToyStore.Base<Exercise> {
     this.setState({ tags })
   }
 
-  // reset() {
-  //   this.setState(new Exercise())
-  // }
+  isValid() {
+    if (!this.value.date) {
+      return false
+    }
+    if (!this.value.movement) {
+      return false
+    }
+    return true
+  }
 }
 
 export const removeIncompleteSets = (sets: Set[]) => {
@@ -88,13 +94,15 @@ export const organiseByDate = (
 }
 
 export const getAllTags = (exercises: Exercise[]): string[] => {
-  return exercises.reduce<string[]>((p, c) => {
-    for (const tag of c.tags) {
-      if (p.includes(tag) === false) {
-        continue
-      }
-      p.push(tag)
-    }
-    return p
-  }, [])
+  let tags: string[] = []
+  for (const exercise of exercises) {
+    tags = [...tags, ...exercise.tags]
+  }
+  return tags
+}
+
+export const tagsSearch = (exercises: Exercise[], term: string): string[] => {
+  const allTags = getAllTags(exercises)
+  const filtered = allTags.filter(tag => tag.toLowerCase().includes(term.toLowerCase()))
+  return filtered
 }

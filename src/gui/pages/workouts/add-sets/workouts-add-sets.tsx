@@ -15,6 +15,16 @@ export const WorkoutsAddSets = () => {
     router.back()
   }
 
+  const addSet = () => {
+    const newSet = new Exercise.Set()
+    const lastSet = exercise.sets[exercise.sets.length - 1]
+    if (lastSet) {
+      newSet.reps = lastSet.reps
+      newSet.weight = lastSet.weight
+    }
+    workoutBuilder.addSet(newSet)
+  }
+
   return (
     <div className='component-workouts-add-sets'>
       <div className='set'>
@@ -50,7 +60,7 @@ export const WorkoutsAddSets = () => {
         </div>
       ))}
       <Button
-        onClick={() => workoutBuilder.addSet()}
+        onClick={addSet}
         className='add'
         theme='secondary'>
         Add Set

@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { cloneDeep, merge, isEqual } from 'lodash-es'
+import { cloneDeep, isEqual } from 'lodash-es'
 
 /*
   ToyStore.Base is a class to be extended to 
@@ -34,7 +34,7 @@ export class Base<T> {
 
   setState(update: Partial<T>) {
     const clonedValue = cloneDeep(this.value)
-    const updated = merge(clonedValue, update)
+    const updated = { ...clonedValue, ...update }
     if (isEqual(updated, this.value)) {
       return
     }

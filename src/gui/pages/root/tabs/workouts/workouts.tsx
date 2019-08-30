@@ -16,8 +16,8 @@ export const Workouts = () => {
           <DateItem dateString={key} />
           {workoutList[key].map(exercise => (
             <WorkoutItem
-              title={exercise.movement}
-              subtitle={Workout.getPrettySummary(exercise)}
+              title={exercise.movement || 'No Movement'}
+              subtitle={Workout.getPrettySummary(exercise) || 'No Set Data'}
               liftdex={Workout.calculateLiftex(exercise)}
             />
           ))}

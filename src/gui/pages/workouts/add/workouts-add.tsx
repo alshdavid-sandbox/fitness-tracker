@@ -24,6 +24,10 @@ export const WorkoutsAdd = () => {
   }
 
   const save = async () => {
+    if (!workoutBuilder.isValid()) {
+      alert('Invalid workout')
+      return
+    }
     await workouts.add(exercise)
     onHide(() => workoutBuilder.reset())
     router.back()
@@ -56,8 +60,7 @@ export const WorkoutsAdd = () => {
           position: "absolute"
         }}
         type="date"
-        ref={setDateInput}
-      />
+        ref={setDateInput}/>
       <Block
         label="Movement"
         onClick={() => router.navigate("/workouts/add/movement")}
