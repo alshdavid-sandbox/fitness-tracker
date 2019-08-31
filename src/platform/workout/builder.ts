@@ -1,4 +1,5 @@
 import { Exercise, Set } from './exercise'
+import { movementList, tagList } from './defaults'
 import { ToyStore } from '~/kit'
 import { startOfDay } from 'date-fns';
 
@@ -93,16 +94,24 @@ export const organiseByDate = (
   return sorted
 }
 
-export const getAllTags = (exercises: Exercise[]): string[] => {
+export const getAllTags = (exercises: Exercise[], defaults = tagList): string[] => {
   let tags: string[] = []
   for (const exercise of exercises) {
     tags = [...tags, ...exercise.tags]
   }
-  return tags
+  return tags.concat(defaults).sort()
 }
 
 export const tagsSearch = (exercises: Exercise[], term: string): string[] => {
   const allTags = getAllTags(exercises)
   const filtered = allTags.filter(tag => tag.toLowerCase().includes(term.toLowerCase()))
   return filtered
+}
+
+export const getAllMovements = (exercises: Exercise[], defaults = movementList): string[] => {
+  let movements: string[] = []
+  for (const exercise of exercises) {
+    movements.push(exercise.movement)
+  }
+  return movements.concat(defaults).sort()
 }

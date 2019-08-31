@@ -18,8 +18,19 @@ export const WorkoutsAddTags = () => {
   }
 
   const searchForTags = async (term: string) => {
+    if (term === '') {
+      setFilteredTags([])
+      return
+    }
     const exercises = await workouts.getAll()
-    const filtered = Workout.tagsSearch(exercises, term)
+    const filteredList = Workout.tagsSearch(exercises, term)
+    const filtered: string[] = []
+    for (const item of filteredList) {
+      if (exercise.tags.includes(item)) {
+        continue
+      }
+      filtered.push(item)
+    }
     setFilteredTags(filtered)
   }
 

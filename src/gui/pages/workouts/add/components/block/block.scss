@@ -6,6 +6,7 @@
     border-bottom: solid #e0e0e0 1px;
     font-size: 18px;
     position: relative;
+    text-transform: capitalize;
 
     &.has-action:before {
         content: '\f054';

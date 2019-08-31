@@ -37,6 +37,7 @@ export const Root = () => {
         ref={setTabsElement} />
         { fab.show && 
         <Fab
+          pulse={fab.pulse}
           onClick={fab.onClick}
           icon={fab.icon} 
           iconStyle={fab.iconStyle} /> }

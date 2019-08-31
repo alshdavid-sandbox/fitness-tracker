@@ -9,6 +9,7 @@ interface FabState {
   icon?: string
   iconStyle?: string
   onClick?: any
+  pulse?: boolean
 }
 
 export class FabController extends ToyStore.Base<FabState> {
@@ -31,16 +32,19 @@ type FabProps = {
     onClick?: any
     iconStyle?: string
     icon?: string
+    pulse?: boolean
 }
 
 export const Fab = ({ 
   icon, 
   iconStyle, 
-  onClick = () => {}, 
+  onClick = () => {},
+  pulse = false 
 }: FabProps) => {
+    const pulseClassName = pulse ? 'pulse' : ''
     return <div 
       onClick={onClick} 
-      className="component-fab">
+      className={`component-fab ${pulseClassName}`}>
       { icon && <Icon 
         src={icon} 
         weight={iconStyle} /> }

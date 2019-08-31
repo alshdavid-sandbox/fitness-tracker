@@ -1,3 +1,7 @@
+.component-search-panel-spacer {
+  height: 72px;
+}
+
 .component-search-panel {
   height: 72px;
   background-color: #e0e0e0;
@@ -5,6 +9,10 @@
   justify-content: center;
   align-items: center;
   padding: 12px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
   input {
       background-color: white;
