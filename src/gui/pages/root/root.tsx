@@ -41,7 +41,7 @@ export const Root = () => {
           tabsRouter.use(animate.routes(tabAnimations))
           tabsRouter.use(withContext(AppContext, state))
       
-          tabsRouter.path('/workouts/**', async (req, res) => 
+          tabsRouter.path('/workouts', async (req, res) => 
             res.mount(Tabs.Workouts))
       
           tabsRouter.path('/weights', async (req, res) =>
@@ -60,8 +60,8 @@ export const Root = () => {
         <ToolbarItem
           icon="dumbbell"
           text="Workouts"
-          isActive={window.location.pathname === "/workouts/recent"}
-          onClick={() => navigate("/workouts/recent")}/>
+          isActive={window.location.pathname === "/workouts"}
+          onClick={() => navigate("/workouts")}/>
         <ToolbarItem
           icon="weight"
           text="Measure"

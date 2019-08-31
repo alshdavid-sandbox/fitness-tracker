@@ -14,8 +14,6 @@ void async function main() {
   const db = await IndexedDB.connect()
   const workouts = new Workout.Store(db)
   const app = crayon.create()
-
-  // workouts.getBetweenDates().then(console.log)
   
   app.use(preact.router())   
   app.use(transition.loader())
@@ -23,9 +21,11 @@ void async function main() {
   app.use(animate.routes(animations))
   app.use(withContext(AppContext, state))
 
-  app.path('/', (req, res) => res.redirect('/workouts/recent'))
+  app.path('/', (req, res) => res.redirect('/workouts'))
 
-  // This contains a nested router for animation purposes
+  /* 
+    This route contains a nested router for animation purposes
+  */
   app.path('/**', (req, res) => 
     res.mount(Pages.Root))
 
@@ -47,6 +47,4 @@ void async function main() {
   state.router = app
   state.workouts = workouts
   app.load()
-
-  ;(window as any).app = app
 }()

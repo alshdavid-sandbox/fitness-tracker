@@ -14,10 +14,10 @@ export const animations = [
 ]
 
 export const tabAnimations = [
-  { to:   '/workouts/recent', from: '/**', name: transition.slideRight },
-  { from: '/workouts/recent', to:   '/**', name: transition.slideLeft },
-  { to:   '/calories',        from: '/**', name: transition.slideLeft },
-  { from: '/calories',        to:   '/**', name: transition.slideRight }
+  { to:   '/workouts',  from: '/**', name: transition.slideRight },
+  { from: '/workouts',  to:   '/**', name: transition.slideLeft },
+  { to:   '/calories',  from: '/**', name: transition.slideLeft },
+  { from: '/calories',  to:   '/**', name: transition.slideRight }
 ]
 
 export const workoutAnimations = [
