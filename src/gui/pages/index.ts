@@ -1,3 +1,3 @@
-export * from './workouts'
-export * from './root/tabs/weights/weights'
-export * from './root/root'
+export * from './workouts/workouts'
+export * from './measure/measure'
+export * from './calories/calories'

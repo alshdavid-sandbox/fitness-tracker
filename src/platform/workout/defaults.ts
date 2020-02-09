@@ -1,7 +1,7 @@
 export const timeFormat = 'YYYY-MM-DD'
 export const defaultOrderBy = 'date'
 
-export const movementList = [
+export const defaultMovements = [
   'barbell bench press',
   'incline barbell bench press',
   'dumbbell bench press',
@@ -72,7 +72,7 @@ export const movementList = [
   'seated overhead dumbbell extension'
 ]
 
-export const tagList = [
+export const defaultTags = [
   'core',
   'arms',
   'back',

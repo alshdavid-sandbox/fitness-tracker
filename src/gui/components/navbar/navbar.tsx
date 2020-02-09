@@ -1,20 +1,11 @@
 import './navbar.scss'
 import { h } from "preact";
-import { ToyStore } from "~/kit";
 import { Icon } from '../icon'
 
 export interface NavbarState {
   title?: string
   icon?: string
   onClick?: () => any
-}
-
-export class NavbarController extends ToyStore.Base<NavbarState> {
-  constructor(
-    initialValue: NavbarState = {}
-  ) {
-    super(initialValue)
-  }
 }
 
 type NavbarProps = {

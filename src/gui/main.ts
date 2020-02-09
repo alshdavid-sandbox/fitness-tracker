@@ -1,50 +1,21 @@
 import './main.scss'
 import crayon from 'crayon';
-import preact from 'crayon-preact';
-import animate from 'crayon-animate'
-import transition from 'crayon-transition'
-import { withContext } from '~/kit/with-context'
+import crayonPreact from 'crayon-preact';
 import * as Pages from '~/gui/pages'
-import { animations } from '~/gui/animations';
-import { AppContext, state } from '~/gui/context';
-import Workout from '~/platform/workout'
-import IndexedDB from '~/platform/database'
+import services from '~/gui/services';
 
 void async function main() {
-  const db = await IndexedDB.connect()
-  const workouts = new Workout.Store(db)
   const app = crayon.create()
+  services.provide('router', app)
   
-  app.use(preact.router())   
-  app.use(transition.loader())
-  app.use(animate.defaults({ duration: 300 }))
-  app.use(animate.routes(animations))
-  app.use(withContext(AppContext, state))
+  app.use(crayonPreact.router(document.getElementById('outlet')!))
+  app.use(services.middleware)
 
-  app.path('/', (req, res) => res.redirect('/workouts'))
+  app.path('/', ctx => ctx.redirect('/workouts'))
 
-  /* 
-    This route contains a nested router for animation purposes
-  */
-  app.path('/**', (req, res) => 
-    res.mount(Pages.Root))
+  app.path('/workouts', ctx => ctx.mount(Pages.WorkoutsPage))
+  app.path('/measure', ctx => ctx.mount(Pages.MeasurePage))
+  app.path('/calories', ctx => ctx.mount(Pages.CaloriesPage))
 
-  app.path('/workouts/add', (req, res) =>
-    res.mount(Pages.WorkoutsAdd))
-
-  app.path('/workouts/add/movement', (req, res) => 
-    res.mount(Pages.WorkoutsAddMovement))
-
-  app.path('/workouts/add/tags', (req, res) => 
-    res.mount(Pages.WorkoutsAddTags))
-
-  app.path('/workouts/add/notes', (req, res) => 
-    res.mount(Pages.WorkoutsAddNotes))
-
-  app.path('/workouts/add/sets', (req, res) => 
-    res.mount(Pages.WorkoutsAddSets))
-
-  state.router = app
-  state.workouts = workouts
   app.load()
 }()

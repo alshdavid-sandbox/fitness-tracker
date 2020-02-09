@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "node_modules": false,
+    ".vscode": false,
+    ".gitignore": false,
+    "tsconfig.json": false,
+    "tsconfig.build.json": false,
+    "tslint.json": false,
+    "webpack.config.js": false,
+    "yarn.lock": false,
+    ".editorconfig": false,
+    "jest.config.js": false
+  }
+}
