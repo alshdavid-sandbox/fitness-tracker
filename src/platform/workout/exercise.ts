@@ -1,10 +1,12 @@
+import uuid from 'uuid/v4'
+
 export type Set = {
   reps: number
   weight: number
 }
 
-type Exercise = {
-  id?: string
+export type ExerciseEntity = {
+  id: string
   date: Date
   movement: string 
   sets: Set[]
@@ -12,13 +14,13 @@ type Exercise = {
   notes: string
 }
 
-export class ExerciseEntity implements Exercise {
+export class Exercise implements ExerciseEntity {
   constructor(
-    public id?: string,
+    public id: string = uuid(),
+    public date: Date = new Date(),
     public movement: string = '',
     public sets: Set[] = [],
     public tags: string[] = [],
     public notes: string = '',
-    public date: Date = new Date(),
   ) { }
 }

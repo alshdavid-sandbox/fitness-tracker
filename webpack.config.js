@@ -37,7 +37,7 @@ if (args.prod) {
 
 const paths = {
   entry: path.join(__dirname, 'src/gui/main.ts'),
-  nomodule: path.join(__dirname, 'src/gui/main.ts')
+  nomodule: path.join(__dirname, 'src/gui/nomodule.ts')
 }
 
 const entry = [paths.entry]

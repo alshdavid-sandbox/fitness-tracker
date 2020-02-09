@@ -2,11 +2,14 @@ import { createContext } from 'preact'
 import { useContext } from 'preact/hooks';
 import crayon from 'crayon';
 import crayonPreact from 'crayon-preact';
+import workout from '~/platform/workout';
 
 export const services: any = {}
 
 type Services = {
   router: crayon.Router,
+  exerciseRepo: workout.ExerciseRepository,
+  constructExercise?: workout.Exercise,
 }
 
 export const provide = <T extends keyof Services>(

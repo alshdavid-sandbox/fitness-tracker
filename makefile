@@ -3,17 +3,16 @@ default: clean build
 
 dev:
 	npx concurrently \
-		"npx http-server public -s -c-1" \
+		"npx http-server public -s -c-1 -g" \
 		"npx webpack --watch --es2015"
 
-dev-cli:
-	npx concurrently \
-		"npx http-server public -s -c-1" \
-		"npx webpack --watch --es2015 --cli"
+serve:
+	npx http-server public -c-1 -g -b
 
 build: 
 	make build-es2015 
 	make build-es5
+	cd public/dist && gzip -9 -r -k .
 
 build-es2015:
 	npx webpack --prod --es2015

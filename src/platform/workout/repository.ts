@@ -1,42 +1,58 @@
 import { ExerciseEntity } from './exercise' 
+import Dexie from 'dexie'
+import { startOfDay, endOfDay } from 'date-fns'
+import { defaultOrderBy } from "./defaults";
+import { schemaKeys, tableName } from './schema';
 
 export class ExerciseRepository {
-  private exercises: ExerciseEntity[] = []
-
-  public search(term: string) {
-    return this.exercises
-      .map(e => ({ e, values: JSON.stringify([e.movement, e.notes, e.tags]) }))
-      .filter(e => e.values.includes(term))
-      .map(r => r.e)
+  private get table() {
+    return this.conn.table<ExerciseEntity>(tableName)
   }
 
-  public getID(id: string) {
-    const index = this.findIndex(id)
-    return this.exercises[index]
+  constructor(
+    private conn: Dexie,
+  ) {}
+
+  getAll(
+    orderBy = defaultOrderBy
+  ): Promise<ExerciseEntity[]> {
+    return this.table
+      .orderBy(orderBy)
+      .reverse()
+      .toArray()
   }
 
-  public add(e: ExerciseEntity) {
-    if (!e.id) {
-      throw new Error('InvalidExercise')
-    }
-    this.exercises.push(e)
+  search(term: string): Promise<ExerciseEntity[]> {
+    term = term.toLowerCase()
+    return this.table
+      .filter(e => JSON.stringify([e.movement, e.tags, e.notes]).includes(term))
+      .sortBy(defaultOrderBy)
   }
 
-  public remove(e: ExerciseEntity) {
-    const index = this.findIndex(e.id)
-    this.exercises.splice(index, 1)
+  getBetweenDates(
+    from = new Date(),
+    to = new Date(),
+    orderBy = defaultOrderBy,
+  ): Promise<ExerciseEntity[]> {
+    return this.table
+      .where(schemaKeys.date)
+      .between(
+        startOfDay(from),
+        endOfDay(to),
+      )
+      // .reverse()
+      // .sortBy(orderBy)
+      .toArray()
   }
 
-  public update(e: ExerciseEntity) {
-    const index = this.findIndex(e.id)
-    this.exercises[index] = e
+  getById(id: string): Promise<ExerciseEntity | undefined> {
+    return this.table
+      .where(schemaKeys.id)
+      .equals(parseInt(id))
+      .first()
   }
 
-  private findIndex(id?: string) {
-    const index = this.exercises.findIndex(entity => entity.id === id)
-    if (index === -1 || !id) {
-      throw new Error('ExerciseNotFound')
-    }
-    return index
+  async add(exercise: ExerciseEntity): Promise<void> {
+    await this.table.add(exercise)
   }
 }

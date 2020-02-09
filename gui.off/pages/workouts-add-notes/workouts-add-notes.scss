@@ -1,0 +1,28 @@
+.component-workouts-add-notes {
+    background-color: white;
+    min-height: 100vh;
+
+    textarea {
+      position: absolute;
+      resize: none;
+      border: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      box-sizing: border-box;
+      height: calc(100% - 85px);
+      display: block;
+      padding: 20px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .submit {
+      display: block;
+      position: fixed;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+    }
+}
+

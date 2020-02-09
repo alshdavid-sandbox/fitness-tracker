@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "devDependencies": {
     "@types/jest": "^24.9.1",
+    "@types/uuid": "^3.4.7",
     "concurrently": "^5.1.0",
     "css-loader": "^3.4.2",
     "fs-extra": "^8.1.0",
@@ -30,6 +31,7 @@
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "preact": "^10.3.1",
-    "reaction-wheel": "^1.0.15"
+    "reaction-wheel": "^1.0.15",
+    "uuid": "^3.4.0"
   }
 }
